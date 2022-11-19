@@ -1,5 +1,9 @@
 package org.ada.inventorymanagementproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+import java.util.List;
+
 public class ItemDTO {
 
         private String code;
@@ -8,6 +12,8 @@ public class ItemDTO {
         private double price;
         private String status;
         private String description;
+      //  @JsonAlias("report_detail")
+      //  private List<ReportDetailDTO> reportDetailDTOS;
 
     public ItemDTO(String code, String name, String stock, double price, String status, String description) {
         this.code = code;

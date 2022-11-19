@@ -5,7 +5,6 @@ import org.ada.inventorymanagementproject.entity.Item;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.ItemRepository;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,16 +26,14 @@ public class ItemService {
         return itemDTO;
     }
 
-
-
-    public List<ItemDTO> retrieveAll(){
+    public List<ItemDTO> retrieveAll(){ //
         List<Item> items = itemRepository.findAll();
         return items.stream()
                 .map(item -> mapToDTO(item))
                 .collect(Collectors.toList());
     }
 
-    public ItemDTO retrieveByCode(String code){
+    public ItemDTO retrieveByCode(String code){ //
         Optional<Item> item = itemRepository.findById(code);
 
         if(item.isEmpty()){
@@ -45,6 +42,20 @@ public class ItemService {
 
         return mapToDTO(item.get());
     }
+
+    public List<ItemDTO> retrieveByName(String name){ //SI NO HAY NADA CREADO DEBE LANZAR UNA EXCEPCION
+
+       List<Item> items = itemRepository.findByName(name);
+
+        if(items.isEmpty()){
+            throw new ResourceNotFoundException();
+        }
+
+        return items.stream()
+                .map(item -> mapToDTO(item))
+                .collect(Collectors.toList());
+    }
+
 
     private void checkForExistingItem(String code) {
         if(itemRepository.existsById(code)){
