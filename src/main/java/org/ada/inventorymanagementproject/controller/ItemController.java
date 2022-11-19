@@ -19,7 +19,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity create(@RequestBody ItemDTO itemDTO){
 
-        ItemDTO createdItemDTO = itemService.create(itemDTO);
+        itemService.create(itemDTO);
 
         return new ResponseEntity(itemDTO.getCode(), HttpStatus.CREATED); //CAMBIAR GETCODE POR MENSAJE "ITEM CREADO EXITOSAMENTE"
     }
