@@ -2,7 +2,7 @@ package org.ada.inventorymanagementproject.exceptions;
 
 public class ExistingResourceException extends RuntimeException{
 
-    public static final String MESSAGE = "El código de barra que está intentando crear, ya existe.";
+    public static final String MESSAGE = "El reporte de factura que está intentando crear, ya existe.";
 
     public ExistingResourceException(){
 
