@@ -21,4 +21,18 @@ public class ReportDetail {
     @JoinColumn(name = "id", nullable = false)
     private SummaryReport summaryReport;
 
+    public ReportDetail(){}
+
+    public ReportDetail(Integer id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }
