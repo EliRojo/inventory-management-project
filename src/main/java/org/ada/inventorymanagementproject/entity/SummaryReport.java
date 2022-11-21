@@ -21,6 +21,8 @@ public class SummaryReport {
     @Column(name = "invoice_amount" ,nullable = false)
     private double invoiceAmount;
 
+    public SummaryReport(){}
+
     public SummaryReport(Integer id, String operationType, LocalDate date, double invoiceAmount) {
         this.id = id;
         this.operationType = operationType;
