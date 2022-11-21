@@ -7,6 +7,8 @@ public class LocationDTO {
     private short column;
     private short row;
 
+    public LocationDTO(){}
+
     public LocationDTO(Integer id, char section, short column, short row) {
         this.id = id;
         this.section = section;

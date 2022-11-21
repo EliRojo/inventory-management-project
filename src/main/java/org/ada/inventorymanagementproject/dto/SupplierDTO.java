@@ -11,6 +11,8 @@ public class SupplierDTO {
     private String contact;
     private String status;
 
+    public SupplierDTO(){}
+
     public SupplierDTO(String supplierCode, String company, String direction, String contact, String status) {
         this.supplierCode = supplierCode;
         this.company = company;

@@ -5,12 +5,14 @@ import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.SupplierRepository;
 import org.ada.inventorymanagementproject.entity.Supplier;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 
 import java.util.stream.Collectors;
-
+@Service
 public class SupplierService {
 
     private final SupplierRepository supplierRepository;

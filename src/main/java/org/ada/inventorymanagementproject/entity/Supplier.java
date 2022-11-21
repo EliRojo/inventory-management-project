@@ -24,6 +24,7 @@ public class Supplier {
 
 
 
+    public Supplier(){}
 
     public Supplier(String supplierCode, String company, String direction, String contact, String status) {
         this.supplierCode = supplierCode;
