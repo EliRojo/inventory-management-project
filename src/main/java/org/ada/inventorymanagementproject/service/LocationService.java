@@ -7,11 +7,13 @@ import org.ada.inventorymanagementproject.entity.Location;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.LocationRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class LocationService {
     private final LocationRepository locationRepository;
 

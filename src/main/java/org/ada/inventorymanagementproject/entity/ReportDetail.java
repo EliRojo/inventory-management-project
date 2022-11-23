@@ -18,7 +18,7 @@ public class ReportDetail {
     private Item item;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "summary_report_id", nullable = false)
     private SummaryReport summaryReport;
 
     public ReportDetail(){}

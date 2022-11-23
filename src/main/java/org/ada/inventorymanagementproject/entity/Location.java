@@ -11,36 +11,38 @@ public class Location {
     private Integer id;
 
     @Column(nullable = false)
-    private char section;
+    private Character section;
 
-    @Column(nullable = false)
-    private short column;
+    @Column(name = "location_Column" , nullable = false)
+    private Short locationColumn;
 
-    @Column(nullable = false)
-    private short row;
+    @Column(name = "location_Row" , nullable = false)
+    private Short locationRow;
 
-    public Location(){}
+    public Location(){
 
-    public Location(Integer id, char section, short column, short row) {
+    }
+
+    public Location(Integer id, Character section, Short locationColumn, Short locationRow) {
         this.id = id;
         this.section = section;
-        this.column = column;
-        this.row = row;
+        this.locationColumn = locationColumn;
+        this.locationRow = locationRow;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public char getSection() {
+    public Character getSection() {
         return section;
     }
 
-    public short getColumn() {
-        return column;
+    public Short getLocationColumn() {
+        return locationColumn;
     }
 
-    public short getRow() {
-        return row;
+    public Short getLocationRow() {
+        return locationRow;
     }
 }

@@ -28,11 +28,11 @@ public class Item {
     private List<ReportDetail> reportDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     public Item() {

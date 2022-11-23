@@ -5,18 +5,25 @@ import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.SupplierRepository;
 import org.ada.inventorymanagementproject.entity.Supplier;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 
 import java.util.stream.Collectors;
 
+@Service
 public class SupplierService {
 
     private final SupplierRepository supplierRepository;
+    public final SummaryReportService summaryReportService;
 
-    public SupplierService(SupplierRepository supplierRepository) {
+
+    public SupplierService(SupplierRepository supplierRepository,
+                           SummaryReportService summaryReportService) {
         this.supplierRepository = supplierRepository;
+        this.summaryReportService = summaryReportService;
     }
 
     public SupplierDTO create(SupplierDTO supplierDTO){
@@ -54,13 +61,15 @@ public class SupplierService {
 
     private SupplierDTO mapToDTO(Supplier supplier) {
 
-        SupplierDTO supplierDTO = new SupplierDTO(supplier.getSupplierCode(),supplier.getCompany(),supplier.getDirection(),supplier.getContact(),supplier.getStatus());
+        SupplierDTO supplierDTO = new SupplierDTO(supplier.getSupplierCode(),supplier.getCompany(),supplier.getDirection(),
+                supplier.getContact(),supplier.getStatus(), summaryReportService.mapToDTOS(supplier.getSummaryReports())); //le paso la lista para que la mapee
 
         return supplierDTO;
     }
 
     private Supplier mapToEntity(SupplierDTO supplierDTO) {
-        Supplier supplier = new Supplier(supplierDTO.getSupplierCode(), supplierDTO.getCompany(), supplierDTO.getContact(), supplierDTO.getDirection(),
+        Supplier supplier = new Supplier(supplierDTO.getSupplierCode(), supplierDTO.getCompany(),
+                supplierDTO.getContact(), supplierDTO.getDirection(),
                 supplierDTO.getStatus());
 
         return supplier;

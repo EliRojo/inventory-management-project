@@ -4,14 +4,16 @@ public class LocationDTO {
 
     private Integer id;
     private char section;
-    private short column;
-    private short row;
+
+    private short Column;
+    private short Row;
+
 
     public LocationDTO(Integer id, char section, short column, short row) {
         this.id = id;
         this.section = section;
-        this.column = column;
-        this.row = row;
+        Column = column;
+        Row = row;
     }
 
     public Integer getId() {
@@ -23,10 +25,10 @@ public class LocationDTO {
     }
 
     public short getColumn() {
-        return column;
+        return Column;
     }
 
     public short getRow() {
-        return row;
+        return Row;
     }
 }
