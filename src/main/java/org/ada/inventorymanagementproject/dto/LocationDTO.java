@@ -1,19 +1,25 @@
 package org.ada.inventorymanagementproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public class LocationDTO {
 
     private Integer id;
     private char section;
 
-    private short Column;
-    private short Row;
+    @JsonAlias("location_column")
+    private short locationColumn;
+    @JsonAlias("location_Row")
+    private short locationRow;
 
 
-    public LocationDTO(Integer id, char section, short column, short row) {
+    public LocationDTO(){}
+
+    public LocationDTO(Integer id, char section, short locationColumn, short locationRow) {
         this.id = id;
         this.section = section;
-        Column = column;
-        Row = row;
+        this.locationColumn = locationColumn;
+        this.locationRow = locationRow;
     }
 
     public Integer getId() {
@@ -24,11 +30,11 @@ public class LocationDTO {
         return section;
     }
 
-    public short getColumn() {
-        return Column;
+    public short getLocationColumn() {
+        return locationColumn;
     }
 
-    public short getRow() {
-        return Row;
+    public short getLocationRow() {
+        return locationRow;
     }
 }

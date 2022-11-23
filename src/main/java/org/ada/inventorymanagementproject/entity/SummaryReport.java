@@ -17,7 +17,8 @@ public class SummaryReport {
     private LocalDate date;
 
     @Column(name = "invoice_amount" ,nullable = false)
-    private double invoiceAmount;
+    private Double invoiceAmount;
+
 
     //le digo q es una relacion
     @ManyToOne(fetch = FetchType.EAGER) //aca le digo que siempre que tenga una factura voy a cargar el proveedor asociado
@@ -25,8 +26,12 @@ public class SummaryReport {
     private Supplier supplier;
 
 
+    public SummaryReport(){
+
+    }
+
     public SummaryReport(Integer id, String operationType, LocalDate date,
-                         double invoiceAmount, Supplier supplier) {
+                         Double invoiceAmount, Supplier supplier) {
         this.id = id;
         this.operationType = operationType;
         this.date = date;
@@ -46,7 +51,7 @@ public class SummaryReport {
         return date;
     }
 
-    public double getInvoiceAmount() {
+    public Double getInvoiceAmount() {
         return invoiceAmount;
     }
 

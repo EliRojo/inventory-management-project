@@ -17,7 +17,7 @@ public class Item {
     private String stock;
 
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @Column(nullable = false)
     private String status;
@@ -38,7 +38,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String code, String name, String stock, double price, String status, String description) {
+    public Item(String code, String name, String stock, Double price, String status, String description) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -59,7 +59,7 @@ public class Item {
         return stock;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

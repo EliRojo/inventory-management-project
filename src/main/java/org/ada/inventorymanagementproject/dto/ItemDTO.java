@@ -15,6 +15,10 @@ public class ItemDTO {
       //  @JsonAlias("report_detail")
       //  private List<ReportDetailDTO> reportDetailDTOS;
 
+    public ItemDTO(){
+
+    }
+
     public ItemDTO(String code, String name, String stock, double price, String status, String description) {
         this.code = code;
         this.name = name;

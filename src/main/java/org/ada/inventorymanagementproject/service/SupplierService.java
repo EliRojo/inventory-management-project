@@ -28,7 +28,7 @@ public class SupplierService {
 
     public SupplierDTO create(SupplierDTO supplierDTO){
         Supplier supplier = mapToEntity(supplierDTO);
-        checkForExistingSupplier(supplier.getSupplierCode());
+        checkForExistingSupplier(supplier.getId());
         supplier = supplierRepository.save(supplier);
         return supplierDTO;
 
@@ -61,16 +61,16 @@ public class SupplierService {
 
     private SupplierDTO mapToDTO(Supplier supplier) {
 
-        SupplierDTO supplierDTO = new SupplierDTO(supplier.getSupplierCode(),supplier.getCompany(),supplier.getDirection(),
+        SupplierDTO supplierDTO = new SupplierDTO(supplier.getId(),supplier.getCompany(),supplier.getDirection(),
                 supplier.getContact(),supplier.getStatus(), summaryReportService.mapToDTOS(supplier.getSummaryReports())); //le paso la lista para que la mapee
 
         return supplierDTO;
     }
 
     private Supplier mapToEntity(SupplierDTO supplierDTO) {
-        Supplier supplier = new Supplier(supplierDTO.getSupplierCode(), supplierDTO.getCompany(),
+        Supplier supplier = new Supplier(supplierDTO.getId(), supplierDTO.getCompany(),
                 supplierDTO.getContact(), supplierDTO.getDirection(),
-                supplierDTO.getStatus());
+                supplierDTO.getStatus(), null);
 
         return supplier;
     }

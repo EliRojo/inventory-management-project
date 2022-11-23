@@ -10,13 +10,13 @@ import java.util.List;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String supplierCode;
+    private String id;
 
     @Column(nullable = false)
     private String company;
 
     @Column(nullable = false)
-    private String direction;
+    private String address;
 
     @Column(nullable = false)
     private String contact;
@@ -33,28 +33,17 @@ public class Supplier {
 
     }
 
-    public Supplier(String supplierCode, String company,
-                    String direction, String contact,
-                    String status) {
-        this.supplierCode = supplierCode;
+    public Supplier(String id, String company, String direction, String contact, String status, List<SummaryReport> summaryReports) {
+        this.id = id;
         this.company = company;
-        this.direction = direction;
-        this.contact = contact;
-        this.status = status;
-    }
-
-    public Supplier(String supplierCode, String company, String direction, String contact, String status,
-                    List<SummaryReport> summaryReports) {
-        this.supplierCode = supplierCode;
-        this.company = company;
-        this.direction = direction;
+        this.address = direction;
         this.contact = contact;
         this.status = status;
         this.summaryReports = summaryReports;
     }
 
-    public String getSupplierCode() {
-        return supplierCode;
+    public String getId() {
+        return id;
     }
 
     public String getCompany() {
@@ -62,7 +51,7 @@ public class Supplier {
     }
 
     public String getDirection() {
-        return direction;
+        return address;
     }
 
     public String getContact() {

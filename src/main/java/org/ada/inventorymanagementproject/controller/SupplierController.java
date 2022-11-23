@@ -20,7 +20,7 @@ public class SupplierController {
     public ResponseEntity create (@RequestBody SupplierDTO supplierDTO){
 
         SupplierDTO createdSupplierDTO = supplierService.create(supplierDTO);
-        return new ResponseEntity(supplierDTO.getSupplierCode(), HttpStatus.CREATED);
+        return new ResponseEntity(supplierDTO.getId(), HttpStatus.CREATED);
 
 
 

@@ -62,12 +62,12 @@ public class LocationService {
     }
     private LocationDTO mapToDTO(Location location) {
 
-        LocationDTO locationDTO = new LocationDTO(location.getId(),location.getSection(),location.getColumn(),location.getRow());
+        LocationDTO locationDTO = new LocationDTO(location.getId(),location.getSection(),location.getLocationColumn(),location.getLocationRow());
 
         return locationDTO;
     }
     private Location mapToEntity(LocationDTO locationDTO) {
-        Location location = new Location(locationDTO.getId(),locationDTO.getSection(),locationDTO.getColumn(),locationDTO.getRow());
+        Location location = new Location(locationDTO.getId(),locationDTO.getSection(),locationDTO.getLocationColumn(),locationDTO.getLocationRow());
 
         return location;
     }

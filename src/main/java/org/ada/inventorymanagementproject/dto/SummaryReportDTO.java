@@ -15,6 +15,7 @@ public class SummaryReportDTO {
     @JsonAlias("invoice_amount")
     private double invoiceAmount;
 
+    public SummaryReportDTO(){}
 
     public SummaryReportDTO(Integer id, String operationType, String date, double invoiceAmount) {
         this.id = id;
