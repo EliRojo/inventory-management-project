@@ -3,6 +3,7 @@ package org.ada.inventorymanagementproject.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SummaryReportDTO {
 
@@ -14,6 +15,9 @@ public class SummaryReportDTO {
 
     @JsonAlias("invoice_amount")
     private double invoiceAmount;
+
+    @JsonAlias("report_detail")
+    private List<ReportDetailDTO> reportDetailDTOS;
 
     public SummaryReportDTO(){}
 

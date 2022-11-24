@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,15 +26,11 @@ public class Item {
     private String description;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<ReportDetail> reportDetail;
+    private List<ReportDetail> reportDetails;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
 
     public Item() {
     }
@@ -70,4 +67,14 @@ public class Item {
     public String getDescription() {
         return description;
     }
+
+    public List<ReportDetail> getReportDetails(){
+        if(reportDetails == null){
+            reportDetails = new ArrayList<>();
+        }
+
+        return reportDetails;
+    }
+
+
 }

@@ -21,7 +21,7 @@ public class ItemController {
 
         itemService.create(itemDTO);
 
-        return new ResponseEntity(itemDTO.getCode(), HttpStatus.CREATED); //CAMBIAR GETCODE POR MENSAJE "ITEM CREADO EXITOSAMENTE"
+        return new ResponseEntity(itemDTO.getCode(), HttpStatus.CREATED);
     }
 
     @GetMapping
