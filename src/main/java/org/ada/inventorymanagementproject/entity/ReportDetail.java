@@ -21,11 +21,18 @@ public class ReportDetail {
     @JoinColumn(name = "summary_report_id", nullable = false)
     private SummaryReport summaryReport;
 
-    public ReportDetail(){}
+    public ReportDetail(){
 
-    public ReportDetail(Integer id, int quantity) {
-        this.id = id;
+    }
+
+    public ReportDetail(int quantity, Item item) {
         this.quantity = quantity;
+        this.item = item;
+    }
+
+    public ReportDetail(int quantity, SummaryReport summaryReport){
+        this.quantity = quantity;
+        this.summaryReport = summaryReport;
     }
 
     public Integer getId() {

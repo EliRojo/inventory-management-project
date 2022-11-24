@@ -12,16 +12,20 @@ public class ReportDetailDTO {
 
     }
 
-    public ReportDetailDTO(Integer id, int quantity) {
-        this.id = id;
+    public ReportDetailDTO(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+
+        return quantity;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

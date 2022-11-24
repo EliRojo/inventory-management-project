@@ -15,21 +15,20 @@ public class SupplierDTO {
     private String contact;
     private String status;
 
-
     @JsonAlias("summary_reports")
-    private List<SummaryReportDTO> summaryReportDTO;
+    private List<SummaryReportDTO> summaryReportDTOS;
 
     public SupplierDTO(){
 
     }
     public SupplierDTO(Integer id, String company, String direction, String contact, String status,
-                       List<SummaryReportDTO> summaryReportDTO) {
+                       List<SummaryReportDTO> summaryReportDTOS) {
         this.id = id;
         this.company = company;
         this.address = direction;
         this.contact = contact;
         this.status = status;
-        this.summaryReportDTO = summaryReportDTO;
+        this.summaryReportDTOS = summaryReportDTOS;
     }
 
 
@@ -53,7 +52,7 @@ public class SupplierDTO {
         return status;
     }
 
-    public List<SummaryReportDTO> getSummaryReportDTO() {
-        return summaryReportDTO;
+    public List<SummaryReportDTO> getSummaryReportDTOS() {
+        return summaryReportDTOS;
     }
 }
