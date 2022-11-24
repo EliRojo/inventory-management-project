@@ -43,8 +43,8 @@ public class SupplierService {
                 .collect(Collectors.toList());
     }
 
-    public SupplierDTO retrieveByCode(String supplierCode){
-        Optional<Supplier> supplier = supplierRepository.findById(supplierCode);
+    public SupplierDTO retrieveById (Integer supplierId){
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
 
         if(supplier.isEmpty()){
             throw new ResourceNotFoundException();
@@ -53,8 +53,8 @@ public class SupplierService {
         return mapToDTO(supplier.get());
     }
 
-    private void checkForExistingSupplier(String supplierCode) {
-        if(supplierRepository.existsById(supplierCode)){
+    private void checkForExistingSupplier(Integer supplierId) {
+        if(supplierRepository.existsById(supplierId)){
             throw new ExistingResourceException();
         }
     }

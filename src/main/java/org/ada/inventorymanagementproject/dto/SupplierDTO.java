@@ -9,7 +9,7 @@ import java.util.List;
 public class SupplierDTO {
 
 
-    private String id;
+    private Integer id;
     private String company;
     private String address;
     private String contact;
@@ -19,8 +19,10 @@ public class SupplierDTO {
     @JsonAlias("summary_reports")
     private List<SummaryReportDTO> summaryReportDTO;
 
-    public SupplierDTO(){}
-    public SupplierDTO(String id, String company, String direction, String contact, String status,
+    public SupplierDTO(){
+
+    }
+    public SupplierDTO(Integer id, String company, String direction, String contact, String status,
                        List<SummaryReportDTO> summaryReportDTO) {
         this.id = id;
         this.company = company;
@@ -30,7 +32,8 @@ public class SupplierDTO {
         this.summaryReportDTO = summaryReportDTO;
     }
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 

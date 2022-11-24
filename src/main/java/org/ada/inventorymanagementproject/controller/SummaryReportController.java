@@ -10,8 +10,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/SummaryReport")
+@RequestMapping(path = "/suppliers/{supplierId}/summaryReports")
 public class SummaryReportController {
 
+    private final SummaryReportService summaryReportService;
 
+    public SummaryReportController(SummaryReportService summaryReportService) {
+        this.summaryReportService = summaryReportService;
+    }
+
+    @PostMapping
+    public ResponseEntity create (@PathVariable Integer supplierId ,
+                                   @RequestBody SummaryReportDTO summaryReportDTO){
+        summaryReportService.create(summaryReportDTO , supplierId);
+
+        return new ResponseEntity<>(summaryReportDTO.getId() , HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{summaryReportsId}")
+    public ResponseEntity retrieveById(@PathVariable Integer supplierId,
+                                       @PathVariable Integer summaryReportsId){
+        SummaryReportDTO summaryReportDTO = summaryReportService.retrieveById(supplierId, summaryReportsId);
+
+        return new ResponseEntity(summaryReportDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{summaryReportsId}")
+    public ResponseEntity delete(@PathVariable Integer summaryReportsId) {
+        summaryReportService.delete(summaryReportsId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

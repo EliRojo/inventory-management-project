@@ -24,6 +24,10 @@ public class SummaryReportDTO {
         this.invoiceAmount = invoiceAmount;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(nullable = false)
     private String company;
@@ -33,7 +33,7 @@ public class Supplier {
 
     }
 
-    public Supplier(String id, String company, String direction, String contact, String status, List<SummaryReport> summaryReports) {
+    public Supplier(Integer id, String company, String direction, String contact, String status, List<SummaryReport> summaryReports) {
         this.id = id;
         this.company = company;
         this.address = direction;
@@ -42,7 +42,8 @@ public class Supplier {
         this.summaryReports = summaryReports;
     }
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 

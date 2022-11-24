@@ -39,6 +39,7 @@ public class SummaryReport {
         this.supplier = supplier;
     }
 
+
     public Integer getId() {
         return id;
     }
