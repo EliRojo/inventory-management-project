@@ -38,15 +38,29 @@ public class SummaryReport {
 
     }
 
-    public SummaryReport(Integer id, String operationType, LocalDate date,
-                         Double invoiceAmount, Supplier supplier) {
-        this.id = id;
+
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier) {
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
         this.supplier = supplier;
+
     }
 
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, List<ReportDetail> reportDetails) {
+        this.operationType = operationType;
+        this.date = date;
+        this.invoiceAmount = invoiceAmount;
+        this.reportDetails = reportDetails;
+    }
+
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier, List<ReportDetail> reportDetails) {
+        this.operationType = operationType;
+        this.date = date;
+        this.invoiceAmount = invoiceAmount;
+        this.supplier = supplier;
+        this.reportDetails = reportDetails;
+    }
 
     public Integer getId() {
         return id;

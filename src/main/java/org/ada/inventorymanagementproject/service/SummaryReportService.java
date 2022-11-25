@@ -78,7 +78,7 @@ public class SummaryReportService {
 
     private SummaryReport mapToEntity(SummaryReportDTO summaryReportDTO, Supplier supplier) {
 
-        SummaryReport summaryReport = new SummaryReport(summaryReportDTO.getId() ,
+        SummaryReport summaryReport = new SummaryReport(
                 summaryReportDTO.getOperationType(), LocalDate.parse(summaryReportDTO.getDate(), DATE_TIME_FORMATTER),
                 summaryReportDTO.getInvoiceAmount(), supplier);
 
@@ -86,8 +86,11 @@ public class SummaryReportService {
     }
 
     private SummaryReportDTO mapToDTO(SummaryReport summaryReport){
+
         SummaryReportDTO summaryReportDTO = new SummaryReportDTO(summaryReport.getId() , summaryReport.getOperationType(),
                 summaryReport.getDate().toString(), summaryReport.getInvoiceAmount(), null);
+
+        summaryReportDTO.setId(summaryReport.getId());
 
       return summaryReportDTO;
     }

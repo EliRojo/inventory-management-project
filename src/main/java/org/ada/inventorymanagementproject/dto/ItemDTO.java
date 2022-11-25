@@ -2,6 +2,7 @@ package org.ada.inventorymanagementproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ItemDTO {
@@ -12,21 +13,24 @@ public class ItemDTO {
         private double price;
         private String status;
         private String description;
-      //  @JsonAlias("report_detail")
-      //  private List<ReportDetailDTO> reportDetailDTOS;
+        @JsonAlias("report_details")
+        private List<ReportDetailDTO> reportDetailDTOS;
 
     public ItemDTO(){
 
     }
 
-    public ItemDTO(String code, String name, String stock, double price, String status, String description) {
+    public ItemDTO(String code, String name, String stock, double price, String status, String description, List<ReportDetailDTO> reportDetailDTOS) {
         this.code = code;
         this.name = name;
         this.stock = stock;
         this.price = price;
         this.status = status;
         this.description = description;
+        this.reportDetailDTOS = reportDetailDTOS;
     }
+
+
 
     public String getCode() {
         return code;
@@ -51,4 +55,9 @@ public class ItemDTO {
     public String getDescription() {
         return description;
     }
+
+    public List<ReportDetailDTO> getReportDetailDTOS() {
+        return reportDetailDTOS;
+    }
+
 }

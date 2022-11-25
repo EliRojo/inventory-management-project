@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/suppliers/{supplierId}/summaryReports")
+@RequestMapping(path = "/suppliers/{supplierId}/summary-reports")
 public class SummaryReportController {
 
     private final SummaryReportService summaryReportService;
