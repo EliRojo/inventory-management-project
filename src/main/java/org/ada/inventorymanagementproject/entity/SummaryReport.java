@@ -2,6 +2,9 @@ package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Summary_Report ")
 public class SummaryReport {
@@ -24,6 +27,11 @@ public class SummaryReport {
     @ManyToOne(fetch = FetchType.EAGER) //aca le digo que siempre que tenga una factura voy a cargar el proveedor asociado
     @JoinColumn(name = "supplier_id" , nullable = false) //le defino que le pertenece a esa columna y que si o si tengo que asociar
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "report_detail" , fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE)
+    private List<ReportDetail> reportDetails;
+
 
 
     public SummaryReport(){
@@ -58,5 +66,12 @@ public class SummaryReport {
 
     public Supplier getSupplier() {
         return supplier;
+    }
+
+    public List<ReportDetail> getReportDetails() {
+        if (reportDetails == null)
+            reportDetails = new ArrayList<>();
+
+        return reportDetails;
     }
 }

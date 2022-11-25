@@ -3,6 +3,7 @@ package org.ada.inventorymanagementproject.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SummaryReportDTO {
 
@@ -15,13 +16,21 @@ public class SummaryReportDTO {
     @JsonAlias("invoice_amount")
     private double invoiceAmount;
 
-    public SummaryReportDTO(){}
+    @JsonAlias("report_detail")
+    private List<ReportDetailDTO> reportDetailDTOS;
 
-    public SummaryReportDTO(Integer id, String operationType, String date, double invoiceAmount) {
+
+    public SummaryReportDTO(){
+
+    }
+
+    public SummaryReportDTO(Integer id, String operationType, String date,
+                            double invoiceAmount, List<ReportDetailDTO> reportDetailDTOS) {
         this.id = id;
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
+        this.reportDetailDTOS = reportDetailDTOS;
     }
 
     public void setId(Integer id) {
@@ -42,5 +51,9 @@ public class SummaryReportDTO {
 
     public double getInvoiceAmount() {
         return invoiceAmount;
+    }
+
+    public List<ReportDetailDTO> getReportDetailDTOS() {
+        return reportDetailDTOS;
     }
 }

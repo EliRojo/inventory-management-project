@@ -27,7 +27,7 @@ public class SummaryReportController {
         return new ResponseEntity<>(summaryReportDTO.getId() , HttpStatus.CREATED);
     }
 
-    @GetMapping("/{summaryReportsId}")
+    @GetMapping("/{summaryReportId}")
     public ResponseEntity retrieveById(@PathVariable Integer supplierId,
                                        @PathVariable Integer summaryReportsId){
         SummaryReportDTO summaryReportDTO = summaryReportService.retrieveById(supplierId, summaryReportsId);
@@ -35,7 +35,7 @@ public class SummaryReportController {
         return new ResponseEntity(summaryReportDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{summaryReportsId}")
+    @DeleteMapping("/{summaryReportId}")
     public ResponseEntity delete(@PathVariable Integer summaryReportsId) {
         summaryReportService.delete(summaryReportsId);
 

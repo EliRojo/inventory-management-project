@@ -87,7 +87,7 @@ public class SummaryReportService {
 
     private SummaryReportDTO mapToDTO(SummaryReport summaryReport){
         SummaryReportDTO summaryReportDTO = new SummaryReportDTO(summaryReport.getId() , summaryReport.getOperationType(),
-                summaryReport.getDate().toString(), summaryReport.getInvoiceAmount());
+                summaryReport.getDate().toString(), summaryReport.getInvoiceAmount(), null);
 
       return summaryReportDTO;
     }

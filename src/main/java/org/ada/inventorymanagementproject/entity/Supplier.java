@@ -33,10 +33,10 @@ public class Supplier {
 
     }
 
-    public Supplier(Integer id, String company, String direction, String contact, String status, List<SummaryReport> summaryReports) {
+    public Supplier(Integer id, String company, String location, String contact, String status, List<SummaryReport> summaryReports) {
         this.id = id;
         this.company = company;
-        this.address = direction;
+        this.address = location;
         this.contact = contact;
         this.status = status;
         this.summaryReports = summaryReports;
