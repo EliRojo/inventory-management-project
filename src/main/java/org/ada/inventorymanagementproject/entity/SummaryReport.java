@@ -2,6 +2,9 @@ package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Summary_Report ")
 public class SummaryReport {
@@ -25,20 +28,39 @@ public class SummaryReport {
     @JoinColumn(name = "supplier_id" , nullable = false) //le defino que le pertenece a esa columna y que si o si tengo que asociar
     private Supplier supplier;
 
+    @OneToMany(mappedBy = "report_detail" , fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE)
+    private List<ReportDetail> reportDetails;
+
+
 
     public SummaryReport(){
 
     }
 
-    public SummaryReport(Integer id, String operationType, LocalDate date,
-                         Double invoiceAmount, Supplier supplier) {
-        this.id = id;
+
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier) {
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
         this.supplier = supplier;
+
     }
 
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, List<ReportDetail> reportDetails) {
+        this.operationType = operationType;
+        this.date = date;
+        this.invoiceAmount = invoiceAmount;
+        this.reportDetails = reportDetails;
+    }
+
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier, List<ReportDetail> reportDetails) {
+        this.operationType = operationType;
+        this.date = date;
+        this.invoiceAmount = invoiceAmount;
+        this.supplier = supplier;
+        this.reportDetails = reportDetails;
+    }
 
     public Integer getId() {
         return id;
@@ -58,5 +80,13 @@ public class SummaryReport {
 
     public Supplier getSupplier() {
         return supplier;
+    }
+
+
+    public List<ReportDetail> getReportDetails() {
+        if (reportDetails == null)
+            reportDetails = new ArrayList<>();
+
+        return reportDetails;
     }
 }

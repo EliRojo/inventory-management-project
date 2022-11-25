@@ -74,19 +74,6 @@ public class ReportDetailService {
 
     }
 
-    private ReportDetail mapToEntity(ReportDetailDTO reportDetailDTO, Item item) {
-
-        ReportDetail reportDetail = new ReportDetail(reportDetailDTO.getQuantity(), item);
-        return reportDetail;
-    }
-
-    private ReportDetailDTO mapToDTO(ReportDetail reportDetail){
-
-        ReportDetailDTO reportDetailDTO = new ReportDetailDTO(reportDetail.getQuantity());
-        reportDetailDTO.setId(reportDetail.getId());
-        return reportDetailDTO;
-    }
-
 
 
     public void  create(ReportDetailDTO reportDetailDTO , Integer summaryReportId){
@@ -130,14 +117,21 @@ public class ReportDetailService {
     }
 
 
-    private ReportDetailDTO mapToDTO(ReportDetail reportDetail) {
 
-        ReportDetailDTO reportDetailDTO = new ReportDetailDTO(reportDetail.getId(),reportDetail.getQuantity());
+    private ReportDetailDTO mapToDTO(ReportDetail reportDetail){
 
+        ReportDetailDTO reportDetailDTO = new ReportDetailDTO(reportDetail.getQuantity());
+        reportDetailDTO.setId(reportDetail.getId());
         return reportDetailDTO;
     }
+
+    private ReportDetail mapToEntity(ReportDetailDTO reportDetailDTO, Item item) {
+
+        ReportDetail reportDetail = new ReportDetail(reportDetailDTO.getQuantity(), item);
+        return reportDetail;
+    }
     private ReportDetail mapToEntity(ReportDetailDTO reportDetailDTO , SummaryReport summaryReport) {
-        ReportDetail reportDetail = new ReportDetail(reportDetailDTO.getId(),reportDetailDTO.getQuantity());
+        ReportDetail reportDetail = new ReportDetail( reportDetailDTO.getQuantity() , summaryReport);
 
         return reportDetail;
     }

@@ -21,8 +21,7 @@ public class SummaryReportDTO {
 
     public SummaryReportDTO(){}
 
-    public SummaryReportDTO(Integer id, String operationType, String date, double invoiceAmount) {
-        this.id = id;
+    public SummaryReportDTO(String operationType, String date, double invoiceAmount) {
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
