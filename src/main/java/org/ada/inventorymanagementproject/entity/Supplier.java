@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,13 @@ public class Supplier {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "supplier" , fetch = FetchType.LAZY,
-                cascade = CascadeType.REMOVE) //le digo que esta mapeado por el campo supplier y con fetch eleijo si cargar las facturas o no
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE)
+    //le digo que esta mapeado por el campo supplier y con fetch eleijo si cargar las facturas o no
     private List<SummaryReport> summaryReports;
 
 
-    public Supplier (){
+    public Supplier() {
 
     }
 
@@ -51,7 +53,7 @@ public class Supplier {
         return company;
     }
 
-    public String getDirection() {
+    public String getAddress() {
         return address;
     }
 
@@ -70,4 +72,38 @@ public class Supplier {
         return summaryReports;
     }
 
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "company":
+                this.company = (String) newValue;
+                break;
+            case "address":
+                this.address = (String) newValue;
+                break;
+            case "contact":
+                this.contact = (String) newValue;
+                break;
+            case "status":
+                this.status = (String) newValue;
+                break;
+
+        }
+    }
 }

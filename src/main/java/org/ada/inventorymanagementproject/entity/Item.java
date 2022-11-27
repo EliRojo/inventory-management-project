@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +77,51 @@ public class Item {
         return reportDetails;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setReportDetails(List<ReportDetail> reportDetails) {
+        this.reportDetails = reportDetails;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "name":
+                this.name = (String) newValue;
+                break;
+            case "stock":
+                this.stock = (String) newValue;
+                break;
+            case "price":
+                this.price = (Double) newValue;
+                break;
+            case "status":
+                this.status = (String) newValue;
+                break;
+            case "description":
+                this.description = (String) newValue;
+                break;
+        }
+    }
 }

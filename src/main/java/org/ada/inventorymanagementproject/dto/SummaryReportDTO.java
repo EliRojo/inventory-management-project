@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SummaryReportDTO {
 
-    private Integer  id;
+    private Integer id;
 
     @JsonAlias("operation_Type")
     private String operationType;
@@ -18,25 +18,29 @@ public class SummaryReportDTO {
 
     @JsonAlias("report_detail")
     private List<ReportDetailDTO> reportDetailDTOS;
-<<<<<<< HEAD
+
 
 
     public SummaryReportDTO(){
 
     }
 
-    public SummaryReportDTO(Integer id, String operationType, String date,
-                            double invoiceAmount, List<ReportDetailDTO> reportDetailDTOS) {
-        this.id = id;
-=======
-
-    public SummaryReportDTO(){}
-
-    public SummaryReportDTO(String operationType, String date, double invoiceAmount) {
->>>>>>> cfce3e5f5cb6a2ea8a7d8f63f9da6f4092b168ab
+    public SummaryReportDTO(String operationType, String date, double invoiceAmount, List<ReportDetailDTO> reportDetailDTOS) {
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
+        this.reportDetailDTOS = reportDetailDTOS;
+    }
+
+    public SummaryReportDTO(String operationType, String date, double invoiceAmount) {
+        this.operationType = operationType;
+        this.date = date;
+        this.invoiceAmount = invoiceAmount;
+    }
+
+    public SummaryReportDTO(String operationType, String date, List<ReportDetailDTO> reportDetailDTOS) {
+        this.operationType = operationType;
+        this.date = date;
         this.reportDetailDTOS = reportDetailDTOS;
     }
 
@@ -64,3 +68,5 @@ public class SummaryReportDTO {
         return reportDetailDTOS;
     }
 }
+
+

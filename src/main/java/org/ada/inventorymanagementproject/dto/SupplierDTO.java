@@ -21,11 +21,11 @@ public class SupplierDTO {
     public SupplierDTO(){
 
     }
-    public SupplierDTO(Integer id, String company, String direction, String contact, String status,
+    public SupplierDTO(String company, String address, String contact, String status,
                        List<SummaryReportDTO> summaryReportDTOS) {
-        this.id = id;
+
         this.company = company;
-        this.address = direction;
+        this.address = address;
         this.contact = contact;
         this.status = status;
         this.summaryReportDTOS = summaryReportDTOS;
@@ -40,7 +40,7 @@ public class SupplierDTO {
         return company;
     }
 
-    public String getDirection() {
+    public String getAddres() {
         return address;
     }
 
@@ -55,4 +55,10 @@ public class SupplierDTO {
     public List<SummaryReportDTO> getSummaryReportDTOS() {
         return summaryReportDTOS;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
 }

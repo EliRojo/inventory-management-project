@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(path = "/suppliers")
 public class SupplierController {
@@ -21,8 +23,6 @@ public class SupplierController {
 
         SupplierDTO createdSupplierDTO = supplierService.create(supplierDTO);
         return new ResponseEntity(supplierDTO.getId(), HttpStatus.CREATED);
-
-
 
     }
 
@@ -39,5 +39,28 @@ public class SupplierController {
 
         return new ResponseEntity(supplierDTO, HttpStatus.OK);
 
+    }
+
+    @DeleteMapping("/{supplierId}")
+    public ResponseEntity delete(@PathVariable Integer supplierId) {
+        supplierService.delete(supplierId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/{supplierId}")
+    public ResponseEntity replace(@PathVariable Integer supplierId,
+                                  @RequestBody SupplierDTO supplierDTO) {
+        supplierService.replace(supplierId, supplierDTO);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{supplierId}")
+    public ResponseEntity modify(@PathVariable Integer supplierId,
+                                 @RequestBody Map<String, Object> fieldsToModify) {
+        supplierService.modify(supplierId, fieldsToModify);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

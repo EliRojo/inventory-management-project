@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(path = "/items")
 public class ItemController {
@@ -38,4 +40,28 @@ public class ItemController {
         return new ResponseEntity(itemDTO, HttpStatus.OK);
 
     }
+
+    @DeleteMapping("/{itemCode}")
+    public ResponseEntity delete(@PathVariable String itemCode){
+        itemService.delete(itemCode);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/{itemCode}")
+    public ResponseEntity replace(@PathVariable String itemCode,
+                                  @RequestBody ItemDTO personDTO) {
+        itemService.replace(itemCode, personDTO);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{itemCode}")
+    public ResponseEntity modify(@PathVariable String itemCode,
+                                 @RequestBody Map<String, Object> fieldsToModify) {
+        itemService.modify(itemCode, fieldsToModify);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
