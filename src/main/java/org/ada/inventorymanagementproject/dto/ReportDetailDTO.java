@@ -9,22 +9,13 @@ public class ReportDetailDTO {
     private int quantity;
 
 
-    public ReportDetailDTO(){
+    public ReportDetailDTO() {
 
     }
 
     public ReportDetailDTO(int quantity) {
+
         this.quantity = quantity;
-    }
-
-<<<<<<< HEAD
-    public void setId(Integer id) {
-        this.id = id;
-=======
-    public int getQuantity() {
-
-        return quantity;
->>>>>>> cfce3e5f5cb6a2ea8a7d8f63f9da6f4092b168ab
     }
 
     public Integer getId() {
@@ -34,4 +25,10 @@ public class ReportDetailDTO {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+
 }
