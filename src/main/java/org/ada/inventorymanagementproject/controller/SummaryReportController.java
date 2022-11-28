@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "/suppliers/{supplierId}/summary-reports")
+@RequestMapping(path = "summary-reports")
 public class SummaryReportController {
 
     private final SummaryReportService summaryReportService;
@@ -20,20 +22,13 @@ public class SummaryReportController {
     }
 
     @PostMapping
-    public ResponseEntity create (@PathVariable Integer supplierId ,
-                                   @RequestBody SummaryReportDTO summaryReportDTO){
-        summaryReportService.create(summaryReportDTO , supplierId);
+    public ResponseEntity create (@RequestBody SummaryReportDTO summaryReportDTO){
+        summaryReportService.create((List<SummaryReportDTO>) summaryReportDTO);
 
         return new ResponseEntity<>(summaryReportDTO.getId() , HttpStatus.CREATED);
     }
 
-    @GetMapping("/{summaryReportsId}")
-    public ResponseEntity retrieveById(@PathVariable Integer supplierId,
-                                       @PathVariable Integer summaryReportsId){
-        SummaryReportDTO summaryReportDTO = summaryReportService.retrieveById(supplierId, summaryReportsId);
 
-        return new ResponseEntity(summaryReportDTO, HttpStatus.OK);
-    }
 
     @DeleteMapping("/{summaryReportsId}")
     public ResponseEntity delete(@PathVariable Integer summaryReportsId) {

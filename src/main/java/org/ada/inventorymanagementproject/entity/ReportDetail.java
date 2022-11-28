@@ -10,6 +10,7 @@ public class ReportDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(nullable = false)
     private int quantity;
 

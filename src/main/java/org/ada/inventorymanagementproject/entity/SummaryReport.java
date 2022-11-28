@@ -23,12 +23,7 @@ public class SummaryReport {
     private Double invoiceAmount;
 
 
-    //le digo q es una relacion
-    @ManyToOne(fetch = FetchType.EAGER) //aca le digo que siempre que tenga una factura voy a cargar el proveedor asociado
-    @JoinColumn(name = "supplier_id" , nullable = false) //le defino que le pertenece a esa columna y que si o si tengo que asociar
-    private Supplier supplier;
-
-    @OneToMany(mappedBy = "report_detail" , fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "summaryReport" , fetch = FetchType.LAZY, // map se indica el campo en la entidad  q se esta mape
             cascade = CascadeType.REMOVE)
     private List<ReportDetail> reportDetails;
 
@@ -39,11 +34,11 @@ public class SummaryReport {
     }
 
 
-    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier) {
+    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount) {
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
-        this.supplier = supplier;
+
 
     }
 
@@ -54,13 +49,6 @@ public class SummaryReport {
         this.reportDetails = reportDetails;
     }
 
-    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, Supplier supplier, List<ReportDetail> reportDetails) {
-        this.operationType = operationType;
-        this.date = date;
-        this.invoiceAmount = invoiceAmount;
-        this.supplier = supplier;
-        this.reportDetails = reportDetails;
-    }
 
     public Integer getId() {
         return id;
@@ -78,9 +66,6 @@ public class SummaryReport {
         return invoiceAmount;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
 
 
     public List<ReportDetail> getReportDetails() {

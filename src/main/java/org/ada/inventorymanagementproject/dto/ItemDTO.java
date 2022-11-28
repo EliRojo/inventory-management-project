@@ -30,8 +30,6 @@ public class ItemDTO {
         this.reportDetailDTOS = reportDetailDTOS;
     }
 
-
-
     public String getCode() {
         return code;
     }
