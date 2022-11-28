@@ -45,6 +45,37 @@ public class Item {
         this.description = description;
     }
 
+    public Item(String code, String name, String stock, Double price, String status, String description, List<ReportDetail> reportDetails) {
+        this.code = code;
+        this.name = name;
+        this.stock = stock;
+        this.price = price;
+        this.status = status;
+        this.description = description;
+        this.reportDetails = reportDetails;
+    }
+
+    public Item(String code, String name, String stock, Double price, String status, String description, List<ReportDetail> reportDetails, Supplier supplier) {
+        this.code = code;
+        this.name = name;
+        this.stock = stock;
+        this.price = price;
+        this.status = status;
+        this.description = description;
+        this.reportDetails = reportDetails;
+        this.supplier = supplier;
+    }
+
+    public Item(String code, String name, String stock, Double price, String status, String description, Supplier supplier) {
+        this.code = code;
+        this.name = name;
+        this.stock = stock;
+        this.price = price;
+        this.status = status;
+        this.description = description;
+        this.supplier = supplier;
+    }
+
     public String getCode() {
         return code;
     }
@@ -104,6 +135,8 @@ public class Item {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
+
+
 
     public void modifyAttributeValue(String attributeName, Object newValue) {
         switch (attributeName) {

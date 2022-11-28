@@ -7,6 +7,7 @@ import org.ada.inventorymanagementproject.repository.SupplierRepository;
 import org.ada.inventorymanagementproject.entity.Supplier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,48 +21,44 @@ import java.util.stream.Collectors;
 public class SupplierService {
 
     private final SupplierRepository supplierRepository;
-    public final SummaryReportService summaryReportService;
+    private final ItemService itemService;
 
 
     public SupplierService(SupplierRepository supplierRepository,
-                           SummaryReportService summaryReportService) {
+                           ItemService itemService) {
         this.supplierRepository = supplierRepository;
-        this.summaryReportService = summaryReportService;
+        this.itemService = itemService;
     }
 
-    public SupplierDTO create(SupplierDTO supplierDTO){
+    public SupplierDTO create(SupplierDTO supplierDTO) {
         Supplier supplier = mapToEntity(supplierDTO);
         checkForExistingSupplier(supplier.getId());
         supplier = supplierRepository.save(supplier);
+        if (!CollectionUtils.isEmpty(supplierDTO.getItemDTOS()))
+            itemService.create(supplierDTO.getItemDTOS(), supplier);
         return supplierDTO;
 
     }
 
-
-    public List<SupplierDTO> retrieveAll(){
+    public List<SupplierDTO> retrieveAll() {
         List<Supplier> suppliers = supplierRepository.findAll();
         return suppliers.stream()
                 .map(supplier -> mapToDTO(supplier))
                 .collect(Collectors.toList());
     }
 
-    public SupplierDTO retrieveById (Integer supplierId){
+    public SupplierDTO retrieveById(String supplierId) {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
 
-        if(supplier.isEmpty()){
+        if (supplier.isEmpty()) {
             throw new ResourceNotFoundException();
         }
 
         return mapToDTO(supplier.get());
     }
 
-    private void checkForExistingSupplier(Integer supplierId) {
-        if(supplierRepository.existsById(supplierId)){
-            throw new ExistingResourceException();
-        }
-    }
 
-    public void delete(Integer supplierId) {
+    public void delete(String supplierId) {
         try {
             supplierRepository.deleteById(supplierId);
         } catch (EmptyResultDataAccessException e) {
@@ -69,21 +66,21 @@ public class SupplierService {
         }
     }
 
-    public void replace(Integer supplierId, SupplierDTO supplierDTO) {
+    public void replace(String supplierId, SupplierDTO supplierDTO) {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
         if (supplier.isEmpty()) {
             throw new ResourceNotFoundException();
         }
         Supplier supplierToReplace = supplier.get();
         supplierToReplace.setCompany(supplierDTO.getCompany());
-        supplierToReplace.setAddress(supplierDTO.getAddres());
+        supplierToReplace.setAddress(supplierDTO.getAddress());
         supplierToReplace.setContact(supplierToReplace.getContact());
         supplierToReplace.setStatus(supplierDTO.getStatus());
 
         supplierRepository.save(supplierToReplace);
     }
 
-    public void modify(Integer supplierId, Map<String, Object> fieldsToModify) {
+    public void modify(String supplierId, Map<String, Object> fieldsToModify) {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
         if (supplier.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -94,21 +91,30 @@ public class SupplierService {
     }
 
 
+
+    private Supplier mapToEntity(SupplierDTO supplierDTO) {
+        Supplier supplier = new Supplier(supplierDTO.getId(), supplierDTO.getCompany(),
+                supplierDTO.getContact(), supplierDTO.getAddress(), supplierDTO.getStatus());
+
+
+        return supplier;
+    }
+
     private SupplierDTO mapToDTO(Supplier supplier) {
 
-        SupplierDTO supplierDTO = new SupplierDTO(supplier.getCompany(),supplier.getAddress(),
-                supplier.getContact(),supplier.getStatus(), summaryReportService.mapToDTOS(supplier.getSummaryReports()));//le paso la lista para que la mapee
+        SupplierDTO supplierDTO = new SupplierDTO(supplier.getId(), supplier.getCompany(), supplier.getAddress(),
+                supplier.getContact(), supplier.getStatus(), itemService.mapToDTOS(supplier.getItems()));//le paso la lista para que la mapee
 
-        supplierDTO.setId(supplier.getId());
 
         return supplierDTO;
     }
 
-    private Supplier mapToEntity(SupplierDTO supplierDTO) {
-        Supplier supplier = new Supplier(supplierDTO.getId(), supplierDTO.getCompany(),
-                supplierDTO.getContact(), supplierDTO.getAddres(),
-                supplierDTO.getStatus(), null);
 
-        return supplier;
+    private void checkForExistingSupplier(String supplierId) {
+        if (supplierRepository.existsById(supplierId)) {
+            throw new ExistingResourceException();
+        }
     }
+
 }
+

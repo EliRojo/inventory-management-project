@@ -21,7 +21,8 @@ public class SupplierController {
     @PostMapping
     public ResponseEntity create (@RequestBody SupplierDTO supplierDTO){
 
-        SupplierDTO createdSupplierDTO = supplierService.create(supplierDTO);
+        supplierService.create(supplierDTO);
+
         return new ResponseEntity(supplierDTO.getId(), HttpStatus.CREATED);
 
     }
@@ -33,7 +34,7 @@ public class SupplierController {
     }
 
     @GetMapping("/{supplierId}")
-    public ResponseEntity retrieveById(@PathVariable Integer supplierId){
+    public ResponseEntity retrieveById(@PathVariable String supplierId){
 
         SupplierDTO supplierDTO = supplierService.retrieveById(supplierId);
 
@@ -42,14 +43,14 @@ public class SupplierController {
     }
 
     @DeleteMapping("/{supplierId}")
-    public ResponseEntity delete(@PathVariable Integer supplierId) {
+    public ResponseEntity delete(@PathVariable String supplierId) {
         supplierService.delete(supplierId);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/{supplierId}")
-    public ResponseEntity replace(@PathVariable Integer supplierId,
+    public ResponseEntity replace(@PathVariable String supplierId,
                                   @RequestBody SupplierDTO supplierDTO) {
         supplierService.replace(supplierId, supplierDTO);
 
@@ -57,7 +58,7 @@ public class SupplierController {
     }
 
     @PatchMapping("/{supplierId}")
-    public ResponseEntity modify(@PathVariable Integer supplierId,
+    public ResponseEntity modify(@PathVariable String supplierId,
                                  @RequestBody Map<String, Object> fieldsToModify) {
         supplierService.modify(supplierId, fieldsToModify);
 

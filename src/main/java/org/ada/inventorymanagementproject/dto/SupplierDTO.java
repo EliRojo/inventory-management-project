@@ -9,30 +9,29 @@ import java.util.List;
 public class SupplierDTO {
 
 
-    private Integer id;
+    private String id;
     private String company;
     private String address;
     private String contact;
     private String status;
-
-    @JsonAlias("summary_reports")
-    private List<SummaryReportDTO> summaryReportDTOS;
+    @JsonAlias("items")
+    private List<ItemDTO> itemDTOS;
 
     public SupplierDTO(){
 
     }
-    public SupplierDTO(String company, String address, String contact, String status,
-                       List<SummaryReportDTO> summaryReportDTOS) {
+    public SupplierDTO(String id, String company, String address, String contact, String status, List<ItemDTO> itemDTOS) {
 
+        this.id = id;
         this.company = company;
         this.address = address;
         this.contact = contact;
         this.status = status;
-        this.summaryReportDTOS = summaryReportDTOS;
+        this.itemDTOS = itemDTOS;
+
     }
 
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -40,7 +39,7 @@ public class SupplierDTO {
         return company;
     }
 
-    public String getAddres() {
+    public String getAddress() {
         return address;
     }
 
@@ -52,13 +51,12 @@ public class SupplierDTO {
         return status;
     }
 
-    public List<SummaryReportDTO> getSummaryReportDTOS() {
-        return summaryReportDTOS;
-    }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-
+    public List<ItemDTO> getItemDTOS() {
+        return itemDTOS;
+    }
 }
