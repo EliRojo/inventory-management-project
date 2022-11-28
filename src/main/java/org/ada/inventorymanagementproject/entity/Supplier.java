@@ -9,9 +9,9 @@ import java.util.List;
 @Table(name = "supplier")
 
 public class Supplier {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private String company;
@@ -27,25 +27,31 @@ public class Supplier {
 
     @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
-    //le digo que esta mapeado por el campo supplier y con fetch eleijo si cargar las facturas o no
-    private List<SummaryReport> summaryReports;
+    private List<Item> items;
 
 
     public Supplier() {
 
     }
 
-    public Supplier(Integer id, String company, String location, String contact, String status, List<SummaryReport> summaryReports) {
+    public Supplier(String id, String company, String address, String contact, String status) {
         this.id = id;
         this.company = company;
-        this.address = location;
+        this.address = address;
         this.contact = contact;
         this.status = status;
-        this.summaryReports = summaryReports;
     }
 
+    public Supplier(String company, String address, String contact, String status, List<Item> items) {
+        this.id = id;
+        this.company = company;
+        this.address = address;
+        this.contact = contact;
+        this.status = status;
+        this.items = items;
+    }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -65,11 +71,11 @@ public class Supplier {
         return status;
     }
 
-    public List<SummaryReport> getSummaryReports() {
-        if (summaryReports == null)
-            summaryReports = new ArrayList<>();
+    public List<Item> getItems() {
+        if (items == null)
+            items = new ArrayList<>();
 
-        return summaryReports;
+        return items;
     }
 
 
