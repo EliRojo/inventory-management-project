@@ -28,8 +28,6 @@ public class SummaryReportController {
         return new ResponseEntity<>(summaryReportDTO.getId() , HttpStatus.CREATED);
     }
 
-
-
     @DeleteMapping("/{summaryReportsId}")
     public ResponseEntity delete(@PathVariable Integer summaryReportsId) {
         summaryReportService.delete(summaryReportsId);

@@ -8,17 +8,14 @@ public class ReportDetailDTO {
     private Integer id;
     private int quantity;
 
-    public ReportDetailDTO(){
+
+    public ReportDetailDTO() {
 
     }
 
     public ReportDetailDTO(int quantity) {
+
         this.quantity = quantity;
-    }
-
-    public int getQuantity() {
-
-        return quantity;
     }
 
     public Integer getId() {
@@ -28,4 +25,10 @@ public class ReportDetailDTO {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+
 }

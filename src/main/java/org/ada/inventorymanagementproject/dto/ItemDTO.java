@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import org.ada.inventorymanagementproject.entity.ReportDetail;
 
 import java.util.Collection;
 import java.util.List;
@@ -58,4 +59,7 @@ public class ItemDTO {
         return reportDetailDTOS;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

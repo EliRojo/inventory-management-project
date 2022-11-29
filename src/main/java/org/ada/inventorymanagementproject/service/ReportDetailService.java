@@ -2,9 +2,12 @@ package org.ada.inventorymanagementproject.service;
 
 import org.ada.inventorymanagementproject.dto.ReportDetailDTO;
 
+
+import org.ada.inventorymanagementproject.dto.SummaryReportDTO;
 import org.ada.inventorymanagementproject.entity.Item;
 import org.ada.inventorymanagementproject.entity.ReportDetail;
 import org.ada.inventorymanagementproject.entity.SummaryReport;
+import org.ada.inventorymanagementproject.entity.Supplier;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.ItemRepository;
@@ -23,8 +26,8 @@ import java.util.stream.Collectors;
 public class ReportDetailService {
 
     private final ReportDetailRepository reportDetailRepository;
-    private final ItemRepository itemRepository;
     private final SummaryReportRepository summaryReportRepository;
+    private final ItemRepository itemRepository;
 
     public ReportDetailService(ReportDetailRepository reportDetailRepository, ItemRepository itemRepository, SummaryReportRepository summaryReportRepository) {
         this.reportDetailRepository = reportDetailRepository;
@@ -115,7 +118,6 @@ public class ReportDetailService {
             throw new ResourceNotFoundException();
         }
     }
-
 
 
     private ReportDetailDTO mapToDTO(ReportDetail reportDetail){

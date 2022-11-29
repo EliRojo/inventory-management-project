@@ -2,34 +2,42 @@ package org.ada.inventorymanagementproject.service;
 
 import org.ada.inventorymanagementproject.dto.ItemDTO;
 import org.ada.inventorymanagementproject.entity.Item;
+import org.ada.inventorymanagementproject.entity.Supplier;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.ItemRepository;
+import org.ada.inventorymanagementproject.repository.SupplierRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Service
 public class ItemService {
 
     private final ItemRepository itemRepository;
     private final ReportDetailService reportDetailService;
+    private final SupplierRepository supplierRepository;
 
-    public ItemService(ItemRepository itemRepository, ReportDetailService reportDetailService) {
+    public ItemService(ItemRepository itemRepository, ReportDetailService reportDetailService, SupplierRepository supplierRepository) {
 
         this.itemRepository = itemRepository;
         this.reportDetailService = reportDetailService;
+        this.supplierRepository = supplierRepository;
     }
 
-    public ItemDTO create(ItemDTO itemDTO){
+    public ItemDTO create(ItemDTO itemDTO) {
 
         Item item = mapToEntity(itemDTO);
         checkForExistingItem(item.getCode());
         item = itemRepository.save(item);
 
-        if(!CollectionUtils.isEmpty(itemDTO.getReportDetailDTOS())){
+        if (!CollectionUtils.isEmpty(itemDTO.getReportDetailDTOS())) {
             reportDetailService.create(itemDTO.getReportDetailDTOS(), item);
         }
 
@@ -37,28 +45,28 @@ public class ItemService {
     }
 
 
-    public List<ItemDTO> retrieveAll(){ //
+    public List<ItemDTO> retrieveAll() { //
         List<Item> items = itemRepository.findAll();
         return items.stream()
                 .map(item -> mapToDTO(item))
                 .collect(Collectors.toList());
     }
 
-    public ItemDTO retrieveByCode(String code){ //
+    public ItemDTO retrieveByCode(String code) { //
         Optional<Item> item = itemRepository.findById(code);
 
-        if(item.isEmpty()){
+        if (item.isEmpty()) {
             throw new ResourceNotFoundException("El código del item que está buscando no existe.");
         }
 
         return mapToDTO(item.get());
     }
 
-    public List<ItemDTO> retrieveByName(String name){ //SI NO HAY NADA CREADO DEBE LANZAR UNA EXCEPCION
+    public List<ItemDTO> retrieveByName(String name) { //SI NO HAY NADA CREADO DEBE LANZAR UNA EXCEPCION
 
-       List<Item> items = itemRepository.findByName(name);
+        List<Item> items = itemRepository.findByName(name);
 
-        if(items.isEmpty()){
+        if (items.isEmpty()) {
             throw new ResourceNotFoundException("El nombre del item que está buscando no existe.");
         }
 
@@ -67,9 +75,67 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
+    public void delete(String itemCode) {
+        try {
+            itemRepository.deleteById(itemCode);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
 
+    public void replace(String personId, ItemDTO itemDTO) {
+        Optional<Item> item = itemRepository.findById(personId);
+        if (item.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        Item personToReplace = item.get(); //¿INCLUIMOS EL CODE?
+        personToReplace.setName(itemDTO.getName());
+        personToReplace.setStock(itemDTO.getStock());
+        personToReplace.setPrice(itemDTO.getPrice());
+        personToReplace.setStatus(itemDTO.getStatus());
+        personToReplace.setDescription(itemDTO.getDescription());
+        itemRepository.save(personToReplace);
+    }
+
+    public void modify(String itemCode, Map<String, Object> fieldsToModify) {
+        Optional<Item> item = itemRepository.findById(itemCode);
+        if (item.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        Item itemToModify = item.get();
+        fieldsToModify.forEach((key, value) -> itemToModify.modifyAttributeValue(key, value));
+        itemRepository.save(itemToModify);
+    }
+
+    //ITEM COMO TABLA SECUNDARIA
+
+    public void create(ItemDTO itemDTO, String supplierId) { // CREA UN ITEM DE UN SUPPLIER QUE YA EXISTE
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El proveedor al que está intentando asociar no existe.");
+        }
+
+        Item item = mapToEntity(itemDTO, supplier.get());
+        item = itemRepository.save(item);
+        itemDTO.setCode(item.getCode());
+
+    }
+
+    public void create(List<ItemDTO> itemDTOS, Supplier supplier) { //crear una persona desde cero con una lista de titulos
+        List<Item> items = itemDTOS.stream()
+                .map(itemDTO -> mapToEntity(itemDTO, supplier))
+                .collect(Collectors.toList());
+        itemRepository.saveAll(items); // ESTE METODO es para crear una lista de academicDegree desde el recurso PERSONA DESDE CERO
+    }
+
+    public List<ItemDTO> mapToDTOS(List<Item> items) {
+
+        return items.stream()
+                .map(item -> mapToDTO(item))
+                .collect(Collectors.toList());
+    }
     private void checkForExistingItem(String code) {
-        if(itemRepository.existsById(code)){
+        if (itemRepository.existsById(code)) {
             throw new ExistingResourceException();
         }
     }
@@ -83,9 +149,20 @@ public class ItemService {
     }
 
     private Item mapToEntity(ItemDTO itemDTO) {
-        Item item = new Item(itemDTO.getCode(),itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
-                         itemDTO.getStatus(), itemDTO.getDescription());
+        Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
+                itemDTO.getStatus(), itemDTO.getDescription());
 
         return item;
     }
+
+    //ITEM COMO TABLA SECUNDARIA
+
+    private Item mapToEntity(ItemDTO itemDTO, Supplier supplier) {
+        Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
+                itemDTO.getStatus(), itemDTO.getDescription(), supplier);
+
+        return item;
+    }
+
+
 }

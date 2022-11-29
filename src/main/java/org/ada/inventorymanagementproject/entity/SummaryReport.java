@@ -66,8 +66,6 @@ public class SummaryReport {
         return invoiceAmount;
     }
 
-
-
     public List<ReportDetail> getReportDetails() {
         if (reportDetails == null)
             reportDetails = new ArrayList<>();
