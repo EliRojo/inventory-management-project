@@ -94,7 +94,7 @@ public class SupplierService {
 
     private Supplier mapToEntity(SupplierDTO supplierDTO) {
         Supplier supplier = new Supplier(supplierDTO.getId(), supplierDTO.getCompany(),
-                supplierDTO.getContact(), supplierDTO.getAddress(), supplierDTO.getStatus());
+                 supplierDTO.getAddress(), supplierDTO.getContact(), supplierDTO.getStatus());
 
 
         return supplier;

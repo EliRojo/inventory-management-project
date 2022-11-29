@@ -42,7 +42,7 @@ public class Supplier {
         this.status = status;
     }
 
-    public Supplier(String company, String address, String contact, String status, List<Item> items) {
+    public Supplier(String id, String company, String address, String contact, String status, List<Item> items) {
         this.id = id;
         this.company = company;
         this.address = address;
