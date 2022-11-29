@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.controller;
 
-import org.ada.inventorymanagementproject.dto.SummaryReportDTO;
+import org.ada.inventorymanagementproject.dto.OperationDTO;
+import org.ada.inventorymanagementproject.service.OperationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/operations")
-public class Operation {
+public class OperationController {
+    private final OperationService operationService;
+
+    public OperationController(OperationService operationService) {
+        this.operationService = operationService;
+    }
 
     @PostMapping
     public ResponseEntity create(@RequestBody OperationDTO operationDTO){
