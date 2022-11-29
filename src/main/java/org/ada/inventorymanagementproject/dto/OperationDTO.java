@@ -24,4 +24,8 @@ public class OperationDTO {
     public List<ReportDetailDTO> getReportDetailDTOS() {
         return reportDetailDTOS;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }
