@@ -3,6 +3,7 @@ package org.ada.inventorymanagementproject.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -71,5 +72,35 @@ public class SummaryReport {
             reportDetails = new ArrayList<>();
 
         return reportDetails;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setInvoiceAmount(Double invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
+    }
+
+    public void setReportDetails(List<ReportDetail> reportDetails) {
+        this.reportDetails = reportDetails;
+    }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "operation_type":
+                this.operationType = (String) newValue;
+                break;
+            case "date":
+                this.date = (LocalDate) newValue;
+                break;
+            case "invoice_amount":
+                this.invoiceAmount = (Double) newValue;
+                break;
+        }
     }
 }

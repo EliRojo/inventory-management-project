@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/items")
+@RequestMapping(path = "suppliers/{supplierId}/items")
 public class ItemController {
 
     private final ItemService itemService;
@@ -19,9 +19,10 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody ItemDTO itemDTO){
+    public ResponseEntity create(@PathVariable String supplierId,
+                                 @RequestBody ItemDTO itemDTO){
 
-        itemService.create(itemDTO);
+        itemService.create(itemDTO, supplierId);
 
         return new ResponseEntity(itemDTO.getCode(), HttpStatus.CREATED);
     }
@@ -33,7 +34,8 @@ public class ItemController {
     }
 
     @GetMapping("/{itemCode}")
-    public ResponseEntity retrieveById(@PathVariable String itemCode){
+    public ResponseEntity retrieveById(@PathVariable String supplierId,
+                                       @PathVariable String itemCode){
 
         ItemDTO itemDTO = itemService.retrieveByCode(itemCode);
 

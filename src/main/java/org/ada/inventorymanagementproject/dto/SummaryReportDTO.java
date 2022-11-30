@@ -48,6 +48,22 @@ public class SummaryReportDTO {
         this.id = id;
     }
 
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setInvoiceAmount(double invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
+    }
+
+    public void setReportDetailDTOS(List<ReportDetailDTO> reportDetailDTOS) {
+        this.reportDetailDTOS = reportDetailDTOS;
+    }
+
     public Integer getId() {
         return id;
     }

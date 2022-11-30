@@ -96,7 +96,6 @@ public class SupplierService {
         Supplier supplier = new Supplier(supplierDTO.getId(), supplierDTO.getCompany(),
                 supplierDTO.getAddress(), supplierDTO.getContact(), supplierDTO.getStatus());
 
-
         return supplier;
     }
 
@@ -110,7 +109,7 @@ public class SupplierService {
     }
 
 
-    private void checkForExistingSupplier(String supplierId) {
+    private void checkForExistingSupplier(String supplierId) {  //este metodo es de create para verificar si este recurso existe en la DB
         if (supplierRepository.existsById(supplierId)) {
             throw new ExistingResourceException();
         }

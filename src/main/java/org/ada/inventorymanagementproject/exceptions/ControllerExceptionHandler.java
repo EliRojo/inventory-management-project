@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+@ControllerAdvice //esta anotacion viene dentro de spring
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(ExistingResourceException.class) //anotacion para indicar como se va a controlar la excepcion

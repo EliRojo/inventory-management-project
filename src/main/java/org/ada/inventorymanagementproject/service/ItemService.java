@@ -32,7 +32,6 @@ public class ItemService {
     }
 
     public ItemDTO create(ItemDTO itemDTO) {
-
         Item item = mapToEntity(itemDTO);
         checkForExistingItem(item.getCode());
         item = itemRepository.save(item);

@@ -36,6 +36,12 @@ public class ReportDetail {
         this.summaryReport = summaryReport;
     }
 
+    public ReportDetail(int quantity, Item item, SummaryReport summaryReport) {
+        this.quantity = quantity;
+        this.item = item;
+        this.summaryReport = summaryReport;
+    }
+
     public Integer getId() {
         return id;
     }
