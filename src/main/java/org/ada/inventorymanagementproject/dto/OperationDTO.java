@@ -6,26 +6,33 @@ import java.util.List;
 
 public class OperationDTO {
 
-    private Integer id;
-    @JsonAlias("summary_reports")
-    private List<SummaryReportDTO> summaryReportDTOS;
-    @JsonAlias("report-details")
-    private List<ReportDetailDTO> reportDetailDTOS;
 
-    public OperationDTO(List<SummaryReportDTO> summaryReportDTOS, List<ReportDetailDTO> reportDetailDTOS) {
-        this.summaryReportDTOS = summaryReportDTOS;
-        this.reportDetailDTOS = reportDetailDTOS;
+
+    @JsonAlias("operation_Type")
+    private String operationType;
+    private String date;
+
+    @JsonAlias("invoice_amount")
+    private double invoiceAmount;
+
+    @JsonAlias("report_detail")
+    private List<OperationItemDTO> itemDTOS;
+
+
+    public String getOperationType() {
+        return operationType;
     }
 
-    public List<SummaryReportDTO> getSummaryReportDTOS() {
-        return summaryReportDTOS;
+    public String getDate() {
+        return date;
     }
 
-    public List<ReportDetailDTO> getReportDetailDTOS() {
-        return reportDetailDTOS;
+    public double getInvoiceAmount() {
+        return invoiceAmount;
     }
 
-    public Integer getId() {
-        return id;
+    public List<OperationItemDTO> getItemDTOS() {
+        return itemDTOS;
     }
+
 }

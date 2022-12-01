@@ -10,6 +10,7 @@ public class ReportDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(nullable = false)
     private int quantity;
 
@@ -32,6 +33,12 @@ public class ReportDetail {
 
     public ReportDetail(int quantity, SummaryReport summaryReport){
         this.quantity = quantity;
+        this.summaryReport = summaryReport;
+    }
+
+    public ReportDetail(int quantity, Item item, SummaryReport summaryReport) {
+        this.quantity = quantity;
+        this.item = item;
         this.summaryReport = summaryReport;
     }
 
