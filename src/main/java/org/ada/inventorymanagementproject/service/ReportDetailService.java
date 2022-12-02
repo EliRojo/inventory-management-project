@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class ReportDetailService {
         this.summaryReportRepository = summaryReportRepository;
     }
 
-    public void create(ReportDetailDTO reportDetailDTO, String itemId){
+   public void create(ReportDetailDTO reportDetailDTO, String itemId){
 
         Optional<Item> item = itemRepository.findById(itemId);
         if(item.isEmpty()){
@@ -46,15 +47,15 @@ public class ReportDetailService {
         reportDetailDTO.setId(reportDetail.getId());
     }
 
-    public void create(List<ReportDetailDTO> reportDetailDTOS, Item item){ //Crea el reporte desde el recurso Item
+   /* public void create(List<ReportDetailDTO> reportDetailDTOS, Item item){ //Crea el reporte desde el recurso Item
         List<ReportDetail> reportDetails = reportDetailDTOS.stream()
                 .map(reportDetailDTO -> mapToEntity(reportDetailDTO, item))
                 .collect(Collectors.toList());
         reportDetailRepository.saveAll(reportDetails);
-    }
+    }*/
 
 
-    public ReportDetailDTO retrieveById(String itemId, Integer reportDetailId){
+  /*  public ReportDetailDTO retrieveById(String itemId, Integer reportDetailId){ //VAMOS A TRAERLO DESDE SUMMARY REPORT
 
         if(!itemRepository.existsById(itemId)){
             throw new ResourceNotFoundException("El código del item que está buscando no existe.");
@@ -67,7 +68,7 @@ public class ReportDetailService {
         }
 
         return mapToDTO(reportDetail.get());
-    }
+    }*/
 
     public List<ReportDetailDTO> mapToDTOS(List<ReportDetail> reportDetails){
 
@@ -78,8 +79,7 @@ public class ReportDetailService {
     }
 
 
-
-    public void  create(ReportDetailDTO reportDetailDTO , Integer summaryReportId){
+   /* public void  create(ReportDetailDTO reportDetailDTO , Integer summaryReportId){
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
         if (summaryReport.isEmpty()){
             throw new ResourceNotFoundException();
@@ -97,9 +97,10 @@ public class ReportDetailService {
                 .map(reportDetailDTO -> mapToEntity(reportDetailDTO, summaryReport))
                 .collect(Collectors.toList());
         reportDetailRepository.saveAll(reportDetail);
-    }
+    }*/
 
-    public ReportDetailDTO retrieveById(Integer summaryReportId, Integer reportDetailId) { //busca, obtiene summaryreports relacionado a un supplier
+    /*public ReportDetailDTO retrieveById(Integer summaryReportId, Integer reportDetailId) {
+
         if (!reportDetailRepository.existsById(summaryReportId)){
             throw new ResourceNotFoundException("El summary report no existe.");
         }
@@ -109,7 +110,7 @@ public class ReportDetailService {
         }
 
         return mapToDTO(reportDetail.get());
-    }
+    }*/
 
     public void delete(Integer reportDetailId) {
         try {
@@ -117,6 +118,27 @@ public class ReportDetailService {
         } catch (EmptyResultDataAccessException e){
             throw new ResourceNotFoundException();
         }
+    }
+
+    public void replace(Integer reportDetailId, ReportDetailDTO reportDetailDTO) {
+        Optional<ReportDetail> reportDetail = reportDetailRepository.findById(reportDetailId);
+        if (reportDetail.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        ReportDetail reportDetailToReplace = reportDetail.get();
+        reportDetailToReplace.setQuantity(reportDetailDTO.getQuantity());
+
+        reportDetailRepository.save(reportDetailToReplace);
+    }
+
+    public void modify(Integer reportDetailId, Map<String, Object> fieldsToModify) {
+        Optional<ReportDetail> reportDetail = reportDetailRepository.findById(reportDetailId);
+        if (reportDetail.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        ReportDetail reportDetailToModify = reportDetail.get();
+        fieldsToModify.forEach((key, value) -> reportDetailToModify.modifyAttributeValue(key, value));
+        reportDetailRepository.save(reportDetailToModify);
     }
 
 
@@ -132,6 +154,7 @@ public class ReportDetailService {
         ReportDetail reportDetail = new ReportDetail(reportDetailDTO.getQuantity(), item);
         return reportDetail;
     }
+
     private ReportDetail mapToEntity(ReportDetailDTO reportDetailDTO , SummaryReport summaryReport) {
         ReportDetail reportDetail = new ReportDetail( reportDetailDTO.getQuantity() , summaryReport);
 

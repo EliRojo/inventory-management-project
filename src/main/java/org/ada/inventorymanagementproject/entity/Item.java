@@ -16,7 +16,7 @@ public class Item {
     private String name;
 
     @Column(nullable = false)
-    private String stock;
+    private Integer stock;
 
     @Column(nullable = false)
     private Double price;
@@ -26,17 +26,17 @@ public class Item {
 
     private String description;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ReportDetail> reportDetails;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
     public Item() {
     }
 
-    public Item(String code, String name, String stock, Double price, String status, String description) {
+    public Item(String code, String name, Integer stock, Double price, String status, String description) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -45,7 +45,7 @@ public class Item {
         this.description = description;
     }
 
-    public Item(String code, String name, String stock, Double price, String status, String description, List<ReportDetail> reportDetails) {
+    public Item(String code, String name, Integer stock, Double price, String status, String description, List<ReportDetail> reportDetails) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -55,7 +55,7 @@ public class Item {
         this.reportDetails = reportDetails;
     }
 
-    public Item(String code, String name, String stock, Double price, String status, String description, List<ReportDetail> reportDetails, Supplier supplier) {
+    public Item(String code, String name, Integer stock, Double price, String status, String description, List<ReportDetail> reportDetails, Supplier supplier) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -66,7 +66,7 @@ public class Item {
         this.supplier = supplier;
     }
 
-    public Item(String code, String name, String stock, Double price, String status, String description, Supplier supplier) {
+    public Item(String code, String name, Integer stock, Double price, String status, String description, Supplier supplier) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -84,7 +84,7 @@ public class Item {
         return name;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
@@ -112,7 +112,7 @@ public class Item {
         this.name = name;
     }
 
-    public void setStock(String stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -144,7 +144,7 @@ public class Item {
                 this.name = (String) newValue;
                 break;
             case "stock":
-                this.stock = (String) newValue;
+                this.stock = (Integer) newValue;
                 break;
             case "price":
                 this.price = (Double) newValue;

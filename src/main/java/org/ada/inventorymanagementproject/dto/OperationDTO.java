@@ -6,7 +6,10 @@ import java.util.List;
 
 public class OperationDTO {
 
+    private String id;
 
+    @JsonAlias("summary_id")
+    private String summaryId;
 
     @JsonAlias("operation_Type")
     private String operationType;
@@ -35,4 +38,11 @@ public class OperationDTO {
         return itemDTOS;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getSummaryId() {
+        return summaryId;
+    }
 }

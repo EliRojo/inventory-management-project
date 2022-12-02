@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "report_detail")
@@ -12,7 +13,7 @@ public class ReportDetail {
 
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_code", nullable = false) //quiero que me traiga tambien el nombre
@@ -22,16 +23,16 @@ public class ReportDetail {
     @JoinColumn(name = "summary_report_id", nullable = false)
     private SummaryReport summaryReport;
 
-    public ReportDetail(){
+    public ReportDetail() {
 
     }
 
-    public ReportDetail(int quantity, Item item) {
+    public ReportDetail(Integer quantity, Item item) {
         this.quantity = quantity;
         this.item = item;
     }
 
-    public ReportDetail(int quantity, SummaryReport summaryReport){
+    public ReportDetail(int quantity, SummaryReport summaryReport) {
         this.quantity = quantity;
         this.summaryReport = summaryReport;
     }
@@ -46,7 +47,21 @@ public class ReportDetail {
         return id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "quantity":
+                this.quantity = (Integer) newValue;
+                break;
+
+        }
+    }
+
 }

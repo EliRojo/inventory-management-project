@@ -3,16 +3,15 @@ package org.ada.inventorymanagementproject.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Summary_Report ")
+@Table(name = "summary_report ")
 public class SummaryReport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;//lo tengo que mapear con grapers
+    @Column(name = "summary_id", nullable = false)
+    private String summaryId;
 
     @Column(name = "operation_type" , nullable = false)
     private String operationType;
@@ -24,7 +23,7 @@ public class SummaryReport {
     private Double invoiceAmount;
 
 
-    @OneToMany(mappedBy = "summaryReport" , fetch = FetchType.LAZY, // map se indica el campo en la entidad  q se esta mape
+    @OneToMany(mappedBy = "summaryReport" , fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
     private List<ReportDetail> reportDetails;
 
@@ -35,7 +34,8 @@ public class SummaryReport {
     }
 
 
-    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount) {
+    public SummaryReport(String summaryId, String operationType, LocalDate date, Double invoiceAmount) {
+        this.summaryId = summaryId;
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
@@ -43,7 +43,8 @@ public class SummaryReport {
 
     }
 
-    public SummaryReport(String operationType, LocalDate date, Double invoiceAmount, List<ReportDetail> reportDetails) {
+    public SummaryReport(String summaryId, String operationType, LocalDate date, Double invoiceAmount, List<ReportDetail> reportDetails) {
+        this.summaryId = summaryId;
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
@@ -51,8 +52,8 @@ public class SummaryReport {
     }
 
 
-    public Integer getId() {
-        return id;
+    public String getSummaryId() {
+        return summaryId;
     }
 
     public String getOperationType() {

@@ -10,8 +10,8 @@ public class ItemDTO {
 
         private String code;
         private String name;
-        private String stock;
-        private double price;
+        private Integer stock;
+        private Double price;
         private String status;
         private String description;
         @JsonAlias("report_details")
@@ -21,7 +21,7 @@ public class ItemDTO {
 
     }
 
-    public ItemDTO(String code, String name, String stock, double price, String status, String description, List<ReportDetailDTO> reportDetailDTOS) {
+    public ItemDTO(String code, String name, Integer stock, Double price, String status, String description, List<ReportDetailDTO> reportDetailDTOS) {
         this.code = code;
         this.name = name;
         this.stock = stock;
@@ -39,11 +39,11 @@ public class ItemDTO {
         return name;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

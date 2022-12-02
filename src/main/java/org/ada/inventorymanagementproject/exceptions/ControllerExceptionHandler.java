@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice //esta anotacion viene dentro de spring
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ExistingResourceException.class) //anotacion para indicar como se va a controlar la excepcion
-    public ResponseEntity handleException (ExistingResourceException e) { //retorna un ResponseEntity porque va a retornar una respuesta de tipo HTTP
+    @ExceptionHandler(ExistingResourceException.class)
+    public ResponseEntity handleException (ExistingResourceException e) {
 
         return new ResponseEntity(ExistingResourceException.MESSAGE, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class) //anotacion para indicar como se va a controlar la excepcion
-    public ResponseEntity handleException (ResourceNotFoundException e) { //retorna un ResponseEntity porque va a retornar una respuesta de tipo HTTP
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity handleException (ResourceNotFoundException e) {
 
         return new ResponseEntity(ResourceNotFoundException.MESSAGE, HttpStatus.NOT_FOUND);
     }
