@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "suppliers/{supplierId}/items")
+@RequestMapping(path = "/suppliers/{supplierId}/items")
 public class ItemController {
 
     private final ItemService itemService;

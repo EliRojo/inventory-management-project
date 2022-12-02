@@ -14,8 +14,6 @@ public class SupplierDTO {
     private String address;
     private String contact;
     private String status;
-    /*@JsonAlias("items")
-    private List<ItemDTO> itemDTOS;*/
 
     public SupplierDTO(){
 

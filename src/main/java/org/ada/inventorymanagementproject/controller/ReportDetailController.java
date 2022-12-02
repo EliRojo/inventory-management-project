@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "items/{itemId}/report-details")
+@RequestMapping(path = "/items/{itemId}/report-details")
 public class ReportDetailController {
 
     private final ReportDetailService reportDetailService;

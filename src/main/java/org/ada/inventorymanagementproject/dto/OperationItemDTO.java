@@ -6,6 +6,14 @@ public class OperationItemDTO {
     private Integer quantity;
 
 
+    public OperationItemDTO(){
+
+    }
+    public OperationItemDTO(String code, Integer quantity) {
+        this.code = code;
+        this.quantity = quantity;
+    }
+
     public String getCode() {
         return code;
     }

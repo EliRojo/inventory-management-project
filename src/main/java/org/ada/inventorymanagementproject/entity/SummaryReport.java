@@ -1,14 +1,18 @@
 package org.ada.inventorymanagementproject.entity;
 
+import org.ada.inventorymanagementproject.entity.ReportDetail;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "summary_report ")
+@Table(name = "summary_report")
 public class SummaryReport {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     @Id
     @Column(name = "summary_id", nullable = false)
     private String summaryId;
@@ -21,6 +25,7 @@ public class SummaryReport {
 
     @Column(name = "invoice_amount" ,nullable = false)
     private Double invoiceAmount;
+
 
 
     @OneToMany(mappedBy = "summaryReport" , fetch = FetchType.LAZY,
@@ -50,6 +55,7 @@ public class SummaryReport {
         this.invoiceAmount = invoiceAmount;
         this.reportDetails = reportDetails;
     }
+
 
 
     public String getSummaryId() {
@@ -93,14 +99,14 @@ public class SummaryReport {
 
     public void modifyAttributeValue(String attributeName, Object newValue) {
         switch (attributeName) {
-            case "operation_type":
+            case "type":
                 this.operationType = (String) newValue;
                 break;
             case "date":
-                this.date = (LocalDate) newValue;
+                this.date = LocalDate.parse((String) newValue, DATE_TIME_FORMATTER);
                 break;
             case "invoice_amount":
-                this.invoiceAmount = (Double) newValue;
+                this.invoiceAmount =  Double.valueOf ((String)  newValue);
                 break;
         }
     }
