@@ -61,6 +61,7 @@ public class OperationController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @DeleteMapping("/{summaryReportsId}")
     public ResponseEntity delete(@PathVariable Integer summaryReportsId) {
         summaryReportService.delete(summaryReportsId);

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "summary-reports")
+@RequestMapping(path = "/summary-reports")
 public class SummaryReportController {
 
     private final SummaryReportService summaryReportService;
@@ -63,8 +63,8 @@ public class SummaryReportController {
         return new ResponseEntity(HttpStatus.OK);
     }
     @DeleteMapping("/{summaryReportId}")
-    public ResponseEntity delete(@PathVariable String summaryReportsId) {
-        summaryReportService.delete(summaryReportsId);
+    public ResponseEntity delete(@PathVariable String summaryReportId) {
+        summaryReportService.delete(summaryReportId);
 
         return new ResponseEntity(HttpStatus.OK);
     }

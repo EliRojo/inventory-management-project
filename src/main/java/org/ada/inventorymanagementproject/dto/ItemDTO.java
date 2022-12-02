@@ -8,14 +8,14 @@ import java.util.List;
 
 public class ItemDTO {
 
-        private String code;
-        private String name;
-        private Integer stock;
-        private Double price;
-        private String status;
-        private String description;
-        @JsonAlias("report_details")
-        private List<ReportDetailDTO> reportDetailDTOS;
+    private String code;
+    private String name;
+    private Integer stock;
+    private Double price;
+    private String status;
+    private String description;
+    @JsonAlias("report_details")
+    private List<ReportDetailDTO> reportDetailDTOS;
 
     public ItemDTO(){
 

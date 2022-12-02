@@ -20,12 +20,9 @@ public class SummaryReportDTO {
     @JsonAlias("report_detail")
     private List<ReportDetailDTO> reportDetailDTOS;
 
-
-
     public SummaryReportDTO(){
 
     }
-
     public SummaryReportDTO(String summaryId, String operationType, String date, double invoiceAmount, List<ReportDetailDTO> reportDetailDTOS) {
         this.summaryId = summaryId;
         this.operationType = operationType;
@@ -47,7 +44,7 @@ public class SummaryReportDTO {
         this.reportDetailDTOS = reportDetailDTOS;
     }
 
-    public void setSummaryId(String id) {
+    public void setSummaryId(String summaryId) {
         this.summaryId = summaryId;
     }
 
@@ -87,5 +84,4 @@ public class SummaryReportDTO {
         return reportDetailDTOS;
     }
 }
-
 

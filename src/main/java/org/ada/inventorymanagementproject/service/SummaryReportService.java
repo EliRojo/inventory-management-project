@@ -1,10 +1,7 @@
 package org.ada.inventorymanagementproject.service;
 
 import org.ada.inventorymanagementproject.dto.SummaryReportDTO;
-import org.ada.inventorymanagementproject.dto.SupplierDTO;
-import org.ada.inventorymanagementproject.entity.Item;
 import org.ada.inventorymanagementproject.entity.SummaryReport;
-import org.ada.inventorymanagementproject.entity.Supplier;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.SummaryReportRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 public class SummaryReportService {
 
@@ -24,7 +22,10 @@ public class SummaryReportService {
     private final SummaryReportRepository summaryReportRepository;
     private final ReportDetailService reportDetailService;
 
-    public SummaryReportService(SummaryReportRepository summaryReportRepository, ReportDetailService reportDetailService) {
+
+
+    public SummaryReportService(SummaryReportRepository summaryReportRepository,
+                                ReportDetailService reportDetailService) {
         this.summaryReportRepository = summaryReportRepository;
         this.reportDetailService = reportDetailService;
 
@@ -62,7 +63,6 @@ public class SummaryReportService {
         summaryReportToReplace.setOperationType(summaryReportDTO.getOperationType());
         summaryReportToReplace.setDate(LocalDate.parse(summaryReportDTO.getDate(), DATE_TIME_FORMATTER));
         summaryReportToReplace.setInvoiceAmount(summaryReportDTO.getInvoiceAmount());
-        //summaryReportToReplace.setReportDetails(summaryReportDTO.getReportDetailDTOS());
 
         summaryReportRepository.save(summaryReportToReplace);
     }
@@ -78,7 +78,6 @@ public class SummaryReportService {
     }
 
 
-
     public void delete(String summaryReportId) {
         try {
             summaryReportRepository.deleteById(summaryReportId);
@@ -86,7 +85,6 @@ public class SummaryReportService {
             throw new ResourceNotFoundException();
         }
     }
-
 
     public List<SummaryReportDTO> mapToDTOS(List<SummaryReport> summaryReports) {
 
@@ -116,6 +114,5 @@ public class SummaryReportService {
 
 
 }
-
 
 

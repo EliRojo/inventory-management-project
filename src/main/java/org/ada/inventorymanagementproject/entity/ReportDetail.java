@@ -1,7 +1,6 @@
 package org.ada.inventorymanagementproject.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "report_detail")
@@ -10,7 +9,6 @@ public class ReportDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
 
     @Column(nullable = false)
     private Integer quantity;

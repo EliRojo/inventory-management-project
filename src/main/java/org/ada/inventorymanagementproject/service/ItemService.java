@@ -30,10 +30,9 @@ public class ItemService {
         this.reportDetailService = reportDetailService;
         this.supplierRepository = supplierRepository;
     }
+    
 
-
-
-    public void create(ItemDTO itemDTO, String supplierId) { // CREA UN ITEM DE UN SUPPLIER QUE YA EXISTE
+    public void create(ItemDTO itemDTO, String supplierId) {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
         if (supplier.isEmpty()) {
             throw new ResourceNotFoundException("El proveedor al que está intentando asociar no existe.");
@@ -88,7 +87,7 @@ public class ItemService {
         if (item.isEmpty()) {
             throw new ResourceNotFoundException();
         }
-        Item personToReplace = item.get(); //¿INCLUIMOS EL CODE?
+        Item personToReplace = item.get();
         personToReplace.setName(itemDTO.getName());
         personToReplace.setStock(itemDTO.getStock());
         personToReplace.setPrice(itemDTO.getPrice());
@@ -107,15 +106,6 @@ public class ItemService {
         itemRepository.save(itemToModify);
     }
 
-
-
-
-   /* public void create(List<ItemDTO> itemDTOS, Supplier supplier) {
-        List<Item> items = itemDTOS.stream()
-                .map(itemDTO -> mapToEntity(itemDTO, supplier))
-                .collect(Collectors.toList());
-        itemRepository.saveAll(items); // ESTE METODO es para crear una lista de ITEMS desde el recurso SUPPLIER DESDE CERO
-    }*/
 
     public List<ItemDTO> mapToDTOS(List<Item> items) {
 
@@ -143,7 +133,6 @@ public class ItemService {
 
         return item;
     }
-
 
     private Item mapToEntity(ItemDTO itemDTO, Supplier supplier) {
         Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
