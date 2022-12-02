@@ -22,9 +22,11 @@ public class SummaryReportService {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final SummaryReportRepository summaryReportRepository;
+    private final ReportDetailService reportDetailService;
 
-    public SummaryReportService(SummaryReportRepository summaryReportRepository) {
+    public SummaryReportService(SummaryReportRepository summaryReportRepository, ReportDetailService reportDetailService) {
         this.summaryReportRepository = summaryReportRepository;
+        this.reportDetailService = reportDetailService;
 
     }
 
@@ -42,7 +44,7 @@ public class SummaryReportService {
         summaryReportRepository.saveAll(summaryReports);
     }
 
-    public SummaryReportDTO retrieveById(Integer summaryReportId) {
+    public SummaryReportDTO retrieveById(String summaryReportId) {
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
 
         if (summaryReport.isEmpty()) {
@@ -51,7 +53,7 @@ public class SummaryReportService {
         return mapToDTO(summaryReport.get());
     }
 
-    public void replace(Integer summaryReportId, SummaryReportDTO summaryReportDTO) {
+    public void replace(String summaryReportId, SummaryReportDTO summaryReportDTO) {
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
         if (summaryReport.isEmpty()){
             throw new ResourceNotFoundException();
@@ -65,19 +67,19 @@ public class SummaryReportService {
         summaryReportRepository.save(summaryReportToReplace);
     }
 
-    public void modify(Integer summaryReportId, Map<String, Object> fieldsToModify) {
+    public void modify(String summaryReportId, Map<String, Object> fieldsToModify) {
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
         if (summaryReport.isEmpty()) {
             throw new ResourceNotFoundException();
         }
-        SummaryReport summaryToModify = summaryReport,get();
+        SummaryReport summaryToModify = summaryReport.get();
         fieldsToModify.forEach((key , value) -> summaryToModify.modifyAttributeValue(key, value));
         summaryReportRepository.save(summaryToModify);
     }
 
 
 
-    public void delete(Integer summaryReportId) {  //elimina summaryReports por id
+    public void delete(String summaryReportId) {
         try {
             summaryReportRepository.deleteById(summaryReportId);
         } catch (EmptyResultDataAccessException e){
@@ -95,7 +97,7 @@ public class SummaryReportService {
 
     private SummaryReport mapToEntity(SummaryReportDTO summaryReportDTO) {
 
-        SummaryReport summaryReport = new SummaryReport(
+        SummaryReport summaryReport = new SummaryReport(summaryReportDTO.getSummaryId(),
                 summaryReportDTO.getOperationType(), LocalDate.parse(summaryReportDTO.getDate(), DATE_TIME_FORMATTER),
                 summaryReportDTO.getInvoiceAmount());
 
@@ -103,10 +105,10 @@ public class SummaryReportService {
     }
 
     private SummaryReportDTO mapToDTO(SummaryReport summaryReport){
-        SummaryReportDTO summaryReportDTO = new SummaryReportDTO(summaryReport.getOperationType(),
-                summaryReport.getDate().toString(), summaryReport.getInvoiceAmount());
 
-        summaryReportDTO.setId(summaryReport.getId());
+        SummaryReportDTO summaryReportDTO = new SummaryReportDTO(summaryReport.getSummaryId(),summaryReport.getOperationType(),
+                summaryReport.getDate().toString(), summaryReport.getInvoiceAmount(),
+                reportDetailService.mapToDTOS(summaryReport.getReportDetails()));
 
         return summaryReportDTO;
     }

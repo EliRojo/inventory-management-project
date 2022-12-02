@@ -31,27 +31,28 @@ public class ItemService {
         this.supplierRepository = supplierRepository;
     }
 
-    public ItemDTO create(ItemDTO itemDTO) {
-        Item item = mapToEntity(itemDTO);
-        checkForExistingItem(item.getCode());
-        item = itemRepository.save(item);
 
-        if (!CollectionUtils.isEmpty(itemDTO.getReportDetailDTOS())) {
-            reportDetailService.create(itemDTO.getReportDetailDTOS(), item);
+
+    public void create(ItemDTO itemDTO, String supplierId) { // CREA UN ITEM DE UN SUPPLIER QUE YA EXISTE
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El proveedor al que está intentando asociar no existe.");
         }
 
-        return itemDTO;
+        Item item = mapToEntity(itemDTO, supplier.get());
+        item = itemRepository.save(item);
+        itemDTO.setCode(item.getCode());
+
     }
 
-
-    public List<ItemDTO> retrieveAll() { //
+    public List<ItemDTO> retrieveAll() {
         List<Item> items = itemRepository.findAll();
         return items.stream()
                 .map(item -> mapToDTO(item))
                 .collect(Collectors.toList());
     }
 
-    public ItemDTO retrieveByCode(String code) { //
+    public ItemDTO retrieveByCode(String code) {
         Optional<Item> item = itemRepository.findById(code);
 
         if (item.isEmpty()) {
@@ -61,7 +62,7 @@ public class ItemService {
         return mapToDTO(item.get());
     }
 
-    public List<ItemDTO> retrieveByName(String name) { //SI NO HAY NADA CREADO DEBE LANZAR UNA EXCEPCION
+    public List<ItemDTO> retrieveByName(String name) {
 
         List<Item> items = itemRepository.findByName(name);
 
@@ -106,26 +107,15 @@ public class ItemService {
         itemRepository.save(itemToModify);
     }
 
-    //ITEM COMO TABLA SECUNDARIA
 
-    public void create(ItemDTO itemDTO, String supplierId) { // CREA UN ITEM DE UN SUPPLIER QUE YA EXISTE
-        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
-        if (supplier.isEmpty()) {
-            throw new ResourceNotFoundException("El proveedor al que está intentando asociar no existe.");
-        }
 
-        Item item = mapToEntity(itemDTO, supplier.get());
-        item = itemRepository.save(item);
-        itemDTO.setCode(item.getCode());
 
-    }
-
-    public void create(List<ItemDTO> itemDTOS, Supplier supplier) { //crear una persona desde cero con una lista de titulos
+   /* public void create(List<ItemDTO> itemDTOS, Supplier supplier) {
         List<Item> items = itemDTOS.stream()
                 .map(itemDTO -> mapToEntity(itemDTO, supplier))
                 .collect(Collectors.toList());
-        itemRepository.saveAll(items); // ESTE METODO es para crear una lista de academicDegree desde el recurso PERSONA DESDE CERO
-    }
+        itemRepository.saveAll(items); // ESTE METODO es para crear una lista de ITEMS desde el recurso SUPPLIER DESDE CERO
+    }*/
 
     public List<ItemDTO> mapToDTOS(List<Item> items) {
 
@@ -154,7 +144,6 @@ public class ItemService {
         return item;
     }
 
-    //ITEM COMO TABLA SECUNDARIA
 
     private Item mapToEntity(ItemDTO itemDTO, Supplier supplier) {
         Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),

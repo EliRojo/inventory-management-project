@@ -31,11 +31,11 @@ public class SupplierService {
     }
 
     public SupplierDTO create(SupplierDTO supplierDTO) {
+
         Supplier supplier = mapToEntity(supplierDTO);
         checkForExistingSupplier(supplier.getId());
         supplier = supplierRepository.save(supplier);
-        if (!CollectionUtils.isEmpty(supplierDTO.getItemDTOS()))
-            itemService.create(supplierDTO.getItemDTOS(), supplier);
+
         return supplierDTO;
 
     }
@@ -102,14 +102,13 @@ public class SupplierService {
     private SupplierDTO mapToDTO(Supplier supplier) {
 
         SupplierDTO supplierDTO = new SupplierDTO(supplier.getId(), supplier.getCompany(), supplier.getAddress(),
-                supplier.getContact(), supplier.getStatus(), itemService.mapToDTOS(supplier.getItems()));//le paso la lista para que la mapee
-
+                supplier.getContact(), supplier.getStatus());
 
         return supplierDTO;
     }
 
 
-    private void checkForExistingSupplier(String supplierId) {  //este metodo es de create para verificar si este recurso existe en la DB
+    private void checkForExistingSupplier(String supplierId) {
         if (supplierRepository.existsById(supplierId)) {
             throw new ExistingResourceException();
         }

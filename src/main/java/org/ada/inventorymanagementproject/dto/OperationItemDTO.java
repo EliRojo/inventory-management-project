@@ -2,23 +2,23 @@ package org.ada.inventorymanagementproject.dto;
 
 public class OperationItemDTO {
 
-    private String id;
-    private Integer cantidad;
+    private String code;
+    private Integer quantity;
 
 
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String code) {
+        this.code = code;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
