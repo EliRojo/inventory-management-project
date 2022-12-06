@@ -7,7 +7,6 @@ import java.util.List;
 
 public class OperationDTO {
 
-    private String id;
 
     @JsonAlias("summary_id")
     private String summaryId;
@@ -27,9 +26,8 @@ public class OperationDTO {
 
     }
 
-    public OperationDTO(String id, String summaryId, String operationType,
+    public OperationDTO(String summaryId, String operationType,
                         String date, double invoiceAmount, List<OperationItemDTO> itemDTOS) {
-        this.id = id;
         this.summaryId = summaryId;
         this.operationType = operationType;
         this.date = date;
@@ -53,9 +51,6 @@ public class OperationDTO {
         return itemDTOS;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public String getSummaryId() {
         return summaryId;

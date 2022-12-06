@@ -2,23 +2,32 @@ package org.ada.inventorymanagementproject.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice //esta anotacion viene dentro de spring
-public class ControllerExceptionHandler extends RuntimeException{
+@ControllerAdvice
+public class ControllerExceptionHandler extends  RuntimeException {
 
     @ExceptionHandler(ExistingResourceException.class)
-    public ResponseEntity handleException (ExistingResourceException e) {
+    public ResponseEntity handleException(ExistingResourceException e) {
 
-        return new ResponseEntity(ExistingResourceException.MESSAGE, HttpStatus.CONFLICT);
+        return new ResponseEntity(e.getMessage(),
+                HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity handleException (ResourceNotFoundException e) {
+    public ResponseEntity handleException(ResourceNotFoundException e) {
 
-        return new ResponseEntity(e.MESSAGE, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(e.getMessage(),
+                HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity handleException(OutOfStockException e) {
+
+        return new ResponseEntity(e.MESSAGE,
+                HttpStatus.BAD_REQUEST);
+    }
+
 }
 

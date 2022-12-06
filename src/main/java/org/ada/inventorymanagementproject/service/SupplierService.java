@@ -51,7 +51,7 @@ public class SupplierService {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
 
         if (supplier.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El id del proveedor que está buscando no existe.");
         }
 
         return mapToDTO(supplier.get());
@@ -62,7 +62,7 @@ public class SupplierService {
         try {
             supplierRepository.deleteById(supplierId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("No se pudo eliminar el proveedor porque el id que está ingresando no existe.");
         }
     }
 
