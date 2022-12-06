@@ -53,6 +53,7 @@ public class OperationService {
 
     }
 
+
     private void checkForExistingItem(String code) {
         if (!itemRepository.existsById(code)) {
             throw new ResourceNotFoundException();

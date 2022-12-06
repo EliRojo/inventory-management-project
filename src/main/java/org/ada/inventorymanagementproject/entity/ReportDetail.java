@@ -62,4 +62,11 @@ public class ReportDetail {
         }
     }
 
+    public Item getItem() {
+        return item;
+    }
+
+    public SummaryReport getSummaryReport() {
+        return summaryReport;
+    }
 }

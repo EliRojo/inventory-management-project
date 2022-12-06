@@ -46,7 +46,6 @@ public class SummaryReportController {
 
     }
 
-
     @PutMapping("/{summaryReportId}")
     public ResponseEntity replace(@PathVariable String summaryReportId,
                                   @RequestBody SummaryReportDTO summaryReportDTO) {

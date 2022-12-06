@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice //esta anotacion viene dentro de spring
-public class ControllerExceptionHandler {
+public class ControllerExceptionHandler extends RuntimeException{
 
     @ExceptionHandler(ExistingResourceException.class)
     public ResponseEntity handleException (ExistingResourceException e) {
@@ -18,7 +18,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity handleException (ResourceNotFoundException e) {
 
-        return new ResponseEntity(ResourceNotFoundException.MESSAGE, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(e.MESSAGE, HttpStatus.NOT_FOUND);
     }
 }
 
