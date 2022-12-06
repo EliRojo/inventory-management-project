@@ -40,6 +40,8 @@ public class SupplierService {
 
     }
 
+
+
     public List<SupplierDTO> retrieveAll() {
         List<Supplier> suppliers = supplierRepository.findAll();
         return suppliers.stream()
@@ -55,6 +57,16 @@ public class SupplierService {
         }
 
         return mapToDTO(supplier.get());
+    }
+
+    public SupplierDTO retrieveByIdWithItems(String supplierId){
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El id del proveedor que está buscando no existe.");
+        }
+
+        return mapToDTOWithItems(supplier.get());
     }
 
 
@@ -103,6 +115,14 @@ public class SupplierService {
 
         SupplierDTO supplierDTO = new SupplierDTO(supplier.getId(), supplier.getCompany(), supplier.getAddress(),
                 supplier.getContact(), supplier.getStatus());
+
+        return supplierDTO;
+    }
+
+    private SupplierDTO mapToDTOWithItems(Supplier supplier) {
+
+        SupplierDTO supplierDTO = new SupplierDTO(supplier.getId(), supplier.getCompany(), supplier.getAddress(),
+                supplier.getContact(), supplier.getStatus(), itemService.mapToDTOS(supplier.getItems()));
 
         return supplierDTO;
     }
