@@ -14,7 +14,7 @@ public class ReportDetail {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_code", nullable = false) //quiero que me traiga tambien el nombre
+    @JoinColumn(name = "item_code", nullable = false)
     private Item item;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -44,15 +44,7 @@ public class ItemController {
 
     }
 
-  /*  @GetMapping("/{supplierId}")
-    public ResponseEntity retrieveBySupplierId(@PathVariable String supplierId){
 
-        ItemDTO itemDTO = itemService.retrieveByCode(supplierId);
-
-        return new ResponseEntity(itemDTO, HttpStatus.OK);
-
-    }*/
-    
     @DeleteMapping("/{itemCode}")
     public ResponseEntity delete(@PathVariable String itemCode){
         itemService.delete(itemCode);

@@ -86,12 +86,14 @@ public class OperationService {
     }
     private void stockMovementOperation(OperationItemDTO operationItemDTO, String operationType, Item item) {
 
+
         if ("entrada".equals(operationType)) {
             item.setStock(item.getStock() + operationItemDTO.getQuantity());
         } else if ("salida".equals(operationType)) {
             if (operationItemDTO.getQuantity() > item.getStock()) {
                 throw new OutOfStockException();
-            } item.setStock(item.getStock() - operationItemDTO.getQuantity());
+            }
+            item.setStock(item.getStock() - operationItemDTO.getQuantity());
         } else {
             throw new ResourceNotFoundException("Por favor ingresar un tipo de operación válido." + "\n" +
                     "Debe indicar si la operación es de 'entrada' o  de 'salida'.");

@@ -31,11 +31,14 @@ public class SupplierDTO {
 
     }
 
-    public SupplierDTO(String company, List<ItemDTO> itemDTOS) {
+    public SupplierDTO(String id, String company, String address, String contact, String status, List<ItemDTO> itemDTOS) {
+        this.id = id;
         this.company = company;
+        this.address = address;
+        this.contact = contact;
+        this.status = status;
         this.itemDTOS = itemDTOS;
     }
-
 
     public String getId() {
         return id;

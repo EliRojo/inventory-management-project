@@ -33,10 +33,19 @@ public class SupplierController {
         return new ResponseEntity(supplierService.retrieveAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{supplierId}")
+   /* @GetMapping("/{supplierId}")
     public ResponseEntity retrieveById(@PathVariable String supplierId){
 
         SupplierDTO supplierDTO = supplierService.retrieveById(supplierId);
+
+        return new ResponseEntity(supplierDTO, HttpStatus.OK);
+
+    }*/
+
+    @GetMapping("/{supplierId}")
+    public ResponseEntity retrieveByIdWithItems(@PathVariable String supplierId){
+
+        SupplierDTO supplierDTO = supplierService.retrieveByIdWithItems(supplierId);
 
         return new ResponseEntity(supplierDTO, HttpStatus.OK);
 
@@ -52,6 +61,7 @@ public class SupplierController {
     @PutMapping("/{supplierId}")
     public ResponseEntity replace(@PathVariable String supplierId,
                                   @RequestBody SupplierDTO supplierDTO) {
+
         supplierService.replace(supplierId, supplierDTO);
 
         return new ResponseEntity(HttpStatus.OK);
