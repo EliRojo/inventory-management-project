@@ -110,7 +110,7 @@ public class SupplierService {
 
     private void checkForExistingSupplier(String supplierId) {
         if (supplierRepository.existsById(supplierId)) {
-            throw new ExistingResourceException();
+            throw new ExistingResourceException("El proveedor que está intentando crear ya existe.");
         }
     }
 

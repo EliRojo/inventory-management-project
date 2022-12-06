@@ -30,7 +30,7 @@ public class ItemService {
         this.reportDetailService = reportDetailService;
         this.supplierRepository = supplierRepository;
     }
-    
+
 
     public void create(ItemDTO itemDTO, String supplierId) {
         Optional<Supplier> supplier = supplierRepository.findById(supplierId);
@@ -61,18 +61,6 @@ public class ItemService {
         return mapToDTO(item.get());
     }
 
-    public List<ItemDTO> retrieveByName(String name) {
-
-        List<Item> items = itemRepository.findByName(name);
-
-        if (items.isEmpty()) {
-            throw new ResourceNotFoundException("El nombre del item que está buscando no existe.");
-        }
-
-        return items.stream()
-                .map(item -> mapToDTO(item))
-                .collect(Collectors.toList());
-    }
 
     public void delete(String itemCode) {
         try {

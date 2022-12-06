@@ -6,7 +6,9 @@ import javax.persistence.*;
 public class ReportDetailDTO {
 
     private Integer id;
-    private int quantity;
+    private Integer quantity;
+    private String item;
+    private String operationType;
 
 
     public ReportDetailDTO() {
@@ -18,6 +20,13 @@ public class ReportDetailDTO {
         this.quantity = quantity;
     }
 
+    public ReportDetailDTO(Integer quantity, String item, String operationType) {
+        this.quantity = quantity;
+        this.item = item;
+        this.operationType = operationType;
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -26,9 +35,15 @@ public class ReportDetailDTO {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
+    public String getOperationType() {
+        return operationType;
+    }
 
+    public String getItem() {
+        return item;
+    }
 }

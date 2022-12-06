@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, String> {
 
-     List<Item> findByName(String name);
+
 }
