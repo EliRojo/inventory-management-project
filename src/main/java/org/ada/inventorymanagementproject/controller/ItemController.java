@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/suppliers/{supplierId}/items")
+@RequestMapping(path = "/items")
 public class ItemController {
 
     private final ItemService itemService;
@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @GetMapping("/{itemCode}")
-    public ResponseEntity retrieveById(@PathVariable String supplierId,
+    public ResponseEntity retrieveById(/*@PathVariable String supplierId,*/
                                        @PathVariable String itemCode){
 
         ItemDTO itemDTO = itemService.retrieveByCode(itemCode);
@@ -44,7 +44,15 @@ public class ItemController {
 
     }
 
+  /*  @GetMapping("/{supplierId}")
+    public ResponseEntity retrieveBySupplierId(@PathVariable String supplierId){
 
+        ItemDTO itemDTO = itemService.retrieveByCode(supplierId);
+
+        return new ResponseEntity(itemDTO, HttpStatus.OK);
+
+    }*/
+    
     @DeleteMapping("/{itemCode}")
     public ResponseEntity delete(@PathVariable String itemCode){
         itemService.delete(itemCode);

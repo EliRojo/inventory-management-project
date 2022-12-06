@@ -51,6 +51,7 @@ public class Supplier {
         this.items = items;
     }
 
+
     public String getId() {
         return id;
     }

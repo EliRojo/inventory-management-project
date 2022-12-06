@@ -7,6 +7,7 @@ import org.ada.inventorymanagementproject.entity.Item;
 import org.ada.inventorymanagementproject.entity.ReportDetail;
 import org.ada.inventorymanagementproject.entity.SummaryReport;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
+import org.ada.inventorymanagementproject.exceptions.OutOfStockException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
 import org.ada.inventorymanagementproject.repository.ItemRepository;
 import org.ada.inventorymanagementproject.repository.ReportDetailRepository;
@@ -40,7 +41,7 @@ public class OperationService {
 
     public void create(OperationDTO operationDTO) {
 
-        for(OperationItemDTO operationItemDTO : operationDTO.getItemDTOS()){
+        for (OperationItemDTO operationItemDTO : operationDTO.getItemDTOS()) {
             checkForExistingItem(operationItemDTO.getCode());
         }
 
@@ -83,15 +84,27 @@ public class OperationService {
         }
         return reportDetails;
     }
-
     private void stockMovementOperation(OperationItemDTO operationItemDTO, String operationType, Item item) {
 
         if ("entrada".equals(operationType)) {
             item.setStock(item.getStock() + operationItemDTO.getQuantity());
         } else if ("salida".equals(operationType)) {
+            if (operationItemDTO.getQuantity() > item.getStock()) {
+                throw new OutOfStockException();
+            } item.setStock(item.getStock() - operationItemDTO.getQuantity());
+        } else {
+            throw new ResourceNotFoundException("Por favor ingresar un tipo de operación válido." + "\n" +
+                    "Debe indicar si la operación es de 'entrada' o  de 'salida'.");
+
+
+       /* if ("entrada".equals(operationType)) {
+            item.setStock(item.getStock() + operationItemDTO.getQuantity());
+        } else if ("salida".equals(operationType)) {
             item.setStock(item.getStock() - operationItemDTO.getQuantity());
         } else{
             throw new ResourceNotFoundException();
+        }*/
+
         }
 
     }
@@ -118,7 +131,6 @@ public class OperationService {
 
         return item;
     }
-
 
 
 }

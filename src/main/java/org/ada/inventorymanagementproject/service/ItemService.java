@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.service;
 
 import org.ada.inventorymanagementproject.dto.ItemDTO;
+import org.ada.inventorymanagementproject.dto.SupplierDTO;
 import org.ada.inventorymanagementproject.entity.Item;
 import org.ada.inventorymanagementproject.entity.Supplier;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
@@ -39,6 +40,7 @@ public class ItemService {
         }
 
         Item item = mapToEntity(itemDTO, supplier.get());
+        checkForExistingItem(item.getCode());
         item = itemRepository.save(item);
         itemDTO.setCode(item.getCode());
 
@@ -60,6 +62,17 @@ public class ItemService {
 
         return mapToDTO(item.get());
     }
+
+    /*public SupplierDTO retrieveBySupplierId(String supplierId) {
+
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El código del proveedor que está buscando no existe.");
+        }
+
+        return mapToDTO(supplier.get);
+    }*/
 
 
     public void delete(String itemCode) {
@@ -103,14 +116,14 @@ public class ItemService {
     }
     private void checkForExistingItem(String code) {
         if (itemRepository.existsById(code)) {
-            throw new ExistingResourceException();
+            throw new ExistingResourceException("El item que está intentando crear ya existe.");
         }
     }
 
     private ItemDTO mapToDTO(Item item) {
 
         ItemDTO itemDTO = new ItemDTO(item.getCode(), item.getName(), item.getStock(), item.getPrice(), item.getStatus(),
-                item.getDescription(), reportDetailService.mapToDTOS(item.getReportDetails()));
+                item.getDescription());
 
         return itemDTO;
     }
@@ -128,6 +141,8 @@ public class ItemService {
 
         return item;
     }
+
+
 
 
 }

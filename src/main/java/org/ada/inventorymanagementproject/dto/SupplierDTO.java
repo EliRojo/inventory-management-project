@@ -1,6 +1,7 @@
 package org.ada.inventorymanagementproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import org.ada.inventorymanagementproject.entity.Item;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ public class SupplierDTO {
     private String contact;
     private String status;
 
+    private List<ItemDTO> itemDTOS;
+
     public SupplierDTO(){
 
     }
@@ -27,6 +30,12 @@ public class SupplierDTO {
         this.status = status;
 
     }
+
+    public SupplierDTO(String company, List<ItemDTO> itemDTOS) {
+        this.company = company;
+        this.itemDTOS = itemDTOS;
+    }
+
 
     public String getId() {
         return id;
@@ -48,10 +57,11 @@ public class SupplierDTO {
         return status;
     }
 
-
     public void setId(String id) {
         this.id = id;
     }
 
-
+    public List<ItemDTO> getItemDTOS() {
+        return itemDTOS;
+    }
 }

@@ -27,7 +27,7 @@ public class OperationController {
 
         operationService.create(operationDTO);
 
-        return new ResponseEntity(operationDTO.getId(), HttpStatus.CREATED);
+        return new ResponseEntity(operationDTO.getSummaryId(), HttpStatus.CREATED);
     }
 
 }
