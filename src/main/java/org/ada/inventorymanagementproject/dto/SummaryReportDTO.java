@@ -12,6 +12,7 @@ public class SummaryReportDTO {
 
     @JsonAlias("operation_Type")
     private String operationType;
+
     private String date;
 
     @JsonAlias("invoice_amount")

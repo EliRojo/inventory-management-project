@@ -1,14 +1,22 @@
 package org.ada.inventorymanagementproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 import javax.persistence.*;
 
 
 public class ReportDetailDTO {
 
     private Integer id;
+
     private Integer quantity;
+
     private String item;
-    private String operationType;
+
+    @JsonAlias("item_code")
+    private String itemCode;
+
+
 
 
     public ReportDetailDTO() {
@@ -20,10 +28,10 @@ public class ReportDetailDTO {
         this.quantity = quantity;
     }
 
-    public ReportDetailDTO(Integer quantity, String item, String operationType) {
+    public ReportDetailDTO(Integer quantity, String item, String itemCode) {
         this.quantity = quantity;
         this.item = item;
-        this.operationType = operationType;
+        this.itemCode = itemCode;
 
     }
 
@@ -39,11 +47,13 @@ public class ReportDetailDTO {
         return quantity;
     }
 
-    public String getOperationType() {
-        return operationType;
-    }
-
     public String getItem() {
         return item;
     }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+
 }

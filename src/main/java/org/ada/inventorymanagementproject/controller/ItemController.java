@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/items")
+@RequestMapping(path = "/suppliers/{supplierId}/items")
 public class ItemController {
 
     private final ItemService itemService;
@@ -35,8 +35,7 @@ public class ItemController {
     }
 
     @GetMapping("/{itemCode}")
-    public ResponseEntity retrieveById(/*@PathVariable String supplierId,*/
-                                       @PathVariable String itemCode){
+    public ResponseEntity retrieveById(@PathVariable String itemCode){
 
         ItemDTO itemDTO = itemService.retrieveByCode(itemCode);
 
@@ -53,17 +52,20 @@ public class ItemController {
     }
 
     @PutMapping("/{itemCode}")
-    public ResponseEntity replace(@PathVariable String itemCode,
-                                  @RequestBody ItemDTO personDTO) {
-        itemService.replace(itemCode, personDTO);
+    public ResponseEntity replace(@PathVariable String supplierId,
+                                  @PathVariable String itemCode,
+                                  @RequestBody ItemDTO itemDTO) {
+        itemService.replace(supplierId, itemCode, itemDTO);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PatchMapping("/{itemCode}")
-    public ResponseEntity modify(@PathVariable String itemCode,
+    public ResponseEntity modify(@PathVariable String supplierId,
+                                 @PathVariable String itemCode,
                                  @RequestBody Map<String, Object> fieldsToModify) {
-        itemService.modify(itemCode, fieldsToModify);
+
+        itemService.modify(supplierId,itemCode, fieldsToModify);
 
         return new ResponseEntity(HttpStatus.OK);
     }

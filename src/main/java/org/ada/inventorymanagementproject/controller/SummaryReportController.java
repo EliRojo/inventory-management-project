@@ -23,13 +23,7 @@ public class SummaryReportController {
         this.summaryReportService = summaryReportService;
     }
 
-    @PostMapping
-    public ResponseEntity create (@RequestBody SummaryReportDTO summaryReportDTO){
-        summaryReportService.create((List<SummaryReportDTO>) summaryReportDTO);
 
-
-        return new ResponseEntity<>(summaryReportDTO.getSummaryId() , HttpStatus.CREATED);
-    }
 
     @GetMapping
     public ResponseEntity retrieve(){
@@ -61,6 +55,7 @@ public class SummaryReportController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @DeleteMapping("/{summaryReportId}")
     public ResponseEntity delete(@PathVariable String summaryReportId) {
         summaryReportService.delete(summaryReportId);

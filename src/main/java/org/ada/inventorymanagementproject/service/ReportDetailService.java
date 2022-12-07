@@ -38,10 +38,9 @@ public class ReportDetailService {
         this.summaryReportRepository = summaryReportRepository;
     }
 
-
-    public ReportDetailDTO retrieveById(String itemCode, Integer reportDetailId) {
-        if (!itemRepository.existsById(itemCode)) {
-            throw new ResourceNotFoundException("El código del item que está buscando no existe.");
+    public ReportDetailDTO retrieveById(String summaryReportId, Integer reportDetailId) {
+        if (!summaryReportRepository.existsById(summaryReportId)) {
+            throw new ResourceNotFoundException("El id del Summary Report que está buscando no existe.");
         }
 
         Optional<ReportDetail> reportDetail = reportDetailRepository.findById(reportDetailId);
@@ -52,8 +51,13 @@ public class ReportDetailService {
 
         return mapToDTO(reportDetail.get());
     }
-
-
+    public void delete(Integer reportDetailId) {
+        try {
+            reportDetailRepository.deleteById(reportDetailId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
     public List<ReportDetailDTO> mapToDTOS(List<ReportDetail> reportDetails) {
 
         return reportDetails.stream()
@@ -62,18 +66,14 @@ public class ReportDetailService {
 
     }
 
-    public void delete(Integer reportDetailId) {
-        try {
-            reportDetailRepository.deleteById(reportDetailId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException();
+    public void replace(String summaryReportId, Integer reportDetailId, ReportDetailDTO reportDetailDTO) {
+        Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
+        if (summaryReport.isEmpty()) {
+            throw new ResourceNotFoundException("El id del Summary Report que está ingresando no existe.");
         }
-    }
-
-    public void replace(Integer reportDetailId, ReportDetailDTO reportDetailDTO) {
         Optional<ReportDetail> reportDetail = reportDetailRepository.findById(reportDetailId);
         if (reportDetail.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El id del Report Detail que está ingresando no existe.");
         }
         ReportDetail reportDetailToReplace = reportDetail.get();
         reportDetailToReplace.setQuantity(reportDetailDTO.getQuantity());
@@ -81,7 +81,11 @@ public class ReportDetailService {
         reportDetailRepository.save(reportDetailToReplace);
     }
 
-    public void modify(Integer reportDetailId, Map<String, Object> fieldsToModify) {
+    public void modify(String summaryReportId, Integer reportDetailId, Map<String, Object> fieldsToModify) {
+        Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
+        if (summaryReport.isEmpty()) {
+            throw new ResourceNotFoundException("El id del Summary Report que está ingresando no existe.");
+        }
         Optional<ReportDetail> reportDetail = reportDetailRepository.findById(reportDetailId);
         if (reportDetail.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -95,9 +99,7 @@ public class ReportDetailService {
     private ReportDetailDTO mapToDTO(ReportDetail reportDetail) {
 
         ReportDetailDTO reportDetailDTO = new ReportDetailDTO(reportDetail.getQuantity(),
-                reportDetail.getItem().getName(),
-                reportDetail.getSummaryReport().getOperationType());
-
+                reportDetail.getItem().getName(), reportDetail.getItem().getCode());
 
         reportDetailDTO.setId(reportDetail.getId());
         return reportDetailDTO;

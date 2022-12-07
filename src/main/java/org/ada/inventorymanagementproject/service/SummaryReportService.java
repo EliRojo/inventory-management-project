@@ -57,10 +57,10 @@ public class SummaryReportService {
     public void replace(String summaryReportId, SummaryReportDTO summaryReportDTO) {
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
         if (summaryReport.isEmpty()){
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El id del Summary Report que está ingresando no existe.");
         }
         SummaryReport summaryReportToReplace = summaryReport.get();
-        summaryReportToReplace.setOperationType(summaryReportDTO.getOperationType());
+        //summaryReportToReplace.setOperationType(summaryReportDTO.getOperationType());
         summaryReportToReplace.setDate(LocalDate.parse(summaryReportDTO.getDate(), DATE_TIME_FORMATTER));
         summaryReportToReplace.setInvoiceAmount(summaryReportDTO.getInvoiceAmount());
 
@@ -70,7 +70,7 @@ public class SummaryReportService {
     public void modify(String summaryReportId, Map<String, Object> fieldsToModify) {
         Optional<SummaryReport> summaryReport = summaryReportRepository.findById(summaryReportId);
         if (summaryReport.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El id del Summary Report que está ingresando no existe.");
         }
         SummaryReport summaryToModify = summaryReport.get();
         fieldsToModify.forEach((key , value) -> summaryToModify.modifyAttributeValue(key, value));
@@ -82,7 +82,7 @@ public class SummaryReportService {
         try {
             summaryReportRepository.deleteById(summaryReportId);
         } catch (EmptyResultDataAccessException e){
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El id del Summary Report que está ingresando no existe.");
         }
     }
 
