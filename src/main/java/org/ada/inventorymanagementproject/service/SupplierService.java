@@ -7,9 +7,8 @@ import org.ada.inventorymanagementproject.repository.SupplierRepository;
 import org.ada.inventorymanagementproject.entity.Supplier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -86,7 +85,7 @@ public class SupplierService {
         Supplier supplierToReplace = supplier.get();
         supplierToReplace.setCompany(supplierDTO.getCompany());
         supplierToReplace.setAddress(supplierDTO.getAddress());
-        supplierToReplace.setContact(supplierToReplace.getContact());
+        supplierToReplace.setContact(supplierDTO.getContact());
         supplierToReplace.setStatus(supplierDTO.getStatus());
 
         supplierRepository.save(supplierToReplace);

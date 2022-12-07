@@ -1,8 +1,10 @@
 package org.ada.inventorymanagementproject.service;
 
 import org.ada.inventorymanagementproject.dto.ItemDTO;
+import org.ada.inventorymanagementproject.dto.ReportDetailDTO;
 import org.ada.inventorymanagementproject.dto.SupplierDTO;
 import org.ada.inventorymanagementproject.entity.Item;
+import org.ada.inventorymanagementproject.entity.ReportDetail;
 import org.ada.inventorymanagementproject.entity.Supplier;
 import org.ada.inventorymanagementproject.exceptions.ExistingResourceException;
 import org.ada.inventorymanagementproject.exceptions.ResourceNotFoundException;
@@ -47,11 +49,13 @@ public class ItemService {
     }
 
     public List<ItemDTO> retrieveAll() {
+
         List<Item> items = itemRepository.findAll();
         return items.stream()
                 .map(item -> mapToDTO(item))
                 .collect(Collectors.toList());
     }
+
 
     public ItemDTO retrieveByCode(String code) {
         Optional<Item> item = itemRepository.findById(code);
@@ -63,16 +67,6 @@ public class ItemService {
         return mapToDTO(item.get());
     }
 
-    /*public SupplierDTO retrieveBySupplierId(String supplierId) {
-
-        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
-
-        if (supplier.isEmpty()) {
-            throw new ResourceNotFoundException("El código del proveedor que está buscando no existe.");
-        }
-
-        return mapToDTO(supplier.get);
-    }*/
 
 
     public void delete(String itemCode) {
@@ -83,11 +77,17 @@ public class ItemService {
         }
     }
 
-    public void replace(String personId, ItemDTO itemDTO) {
+    public void replace(String supplierId, String personId,  ItemDTO itemDTO) {
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El id del proveedor que está ingresando no existe.");
+        }
+
         Optional<Item> item = itemRepository.findById(personId);
         if (item.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El código del item que está ingresando no existe.");
         }
+
         Item personToReplace = item.get();
         personToReplace.setName(itemDTO.getName());
         personToReplace.setStock(itemDTO.getStock());
@@ -97,10 +97,15 @@ public class ItemService {
         itemRepository.save(personToReplace);
     }
 
-    public void modify(String itemCode, Map<String, Object> fieldsToModify) {
+    public void modify(String supplierId, String itemCode, Map<String, Object> fieldsToModify) {
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()) {
+            throw new ResourceNotFoundException("El id del proveedor que está ingresando no existe.");
+        }
+
         Optional<Item> item = itemRepository.findById(itemCode);
         if (item.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El código del item que está ingresando no existe.");
         }
         Item itemToModify = item.get();
         fieldsToModify.forEach((key, value) -> itemToModify.modifyAttributeValue(key, value));

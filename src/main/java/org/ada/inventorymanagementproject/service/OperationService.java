@@ -54,24 +54,18 @@ public class OperationService {
 
     }
 
+    private SummaryReport mapToEntity(OperationDTO operationDTO) {
 
-    private void checkForExistingItem(String code) {
-        if (!itemRepository.existsById(code)) {
-            throw new ResourceNotFoundException();
-        }
+        SummaryReport summaryReport = new SummaryReport(operationDTO.getSummaryId(), operationDTO.getOperationType(),
+                LocalDate.parse(operationDTO.getDate(), DATE_TIME_FORMATTER), operationDTO.getInvoiceAmount());
+
+        return summaryReport;
+
     }
-
-
-    private void checkForExistingSummaryReport(String summaryReportId) {
-        if (summaryReportRepository.existsById(summaryReportId)) {
-            throw new ExistingResourceException("El Summary Report que está intentando crear ya existe.");
-        }
-    }
-
-
     private List<ReportDetail> mapToEntity(List<OperationItemDTO> itemDTOS, SummaryReport summaryReport) {
 
         List<ReportDetail> reportDetails = new ArrayList<>();
+
         for (OperationItemDTO operationItemDTO : itemDTOS) {
             Item item = itemRepository.getById(operationItemDTO.getCode());
 
@@ -98,26 +92,27 @@ public class OperationService {
             throw new ResourceNotFoundException("Por favor ingresar un tipo de operación válido." + "\n" +
                     "Debe indicar si la operación es de 'entrada' o  de 'salida'.");
 
-
-       /* if ("entrada".equals(operationType)) {
-            item.setStock(item.getStock() + operationItemDTO.getQuantity());
-        } else if ("salida".equals(operationType)) {
-            item.setStock(item.getStock() - operationItemDTO.getQuantity());
-        } else{
-            throw new ResourceNotFoundException();
-        }*/
-
         }
 
     }
+    private void checkForExistingItem(String code) {
+        if (!itemRepository.existsById(code)) {
+            throw new ResourceNotFoundException("El código del item o items que está ingresando no existen.");
+        }
+    }
 
-    private SummaryReport mapToEntity(OperationDTO operationDTO) {
+    private void checkForExistingSummaryReport(String summaryReportId) {
+        if (summaryReportRepository.existsById(summaryReportId)) {
+            throw new ExistingResourceException("El Summary Report que está intentando crear ya existe.");
+        }
+    }
 
-        SummaryReport summaryReport = new SummaryReport(operationDTO.getSummaryId(), operationDTO.getOperationType(),
-                LocalDate.parse(operationDTO.getDate(), DATE_TIME_FORMATTER), operationDTO.getInvoiceAmount());
 
-        return summaryReport;
+   /* private Item mapToEntity(ItemDTO itemDTO) {
+        Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
+                itemDTO.getStatus(), itemDTO.getDescription());
 
+        return item;
     }
 
     private List<Item> mapToEntity(List<ItemDTO> itemDTOS) {
@@ -125,14 +120,7 @@ public class OperationService {
         return itemDTOS.stream()
                 .map(itemDTO -> mapToEntity(itemDTO))
                 .collect(Collectors.toList());
-    }
-
-    private Item mapToEntity(ItemDTO itemDTO) {
-        Item item = new Item(itemDTO.getCode(), itemDTO.getName(), itemDTO.getStock(), itemDTO.getPrice(),
-                itemDTO.getStatus(), itemDTO.getDescription());
-
-        return item;
-    }
+    }*/
 
 
 }

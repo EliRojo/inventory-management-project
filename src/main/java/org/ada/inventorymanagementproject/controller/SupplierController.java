@@ -33,15 +33,6 @@ public class SupplierController {
         return new ResponseEntity(supplierService.retrieveAll(), HttpStatus.OK);
     }
 
-   /* @GetMapping("/{supplierId}")
-    public ResponseEntity retrieveById(@PathVariable String supplierId){
-
-        SupplierDTO supplierDTO = supplierService.retrieveById(supplierId);
-
-        return new ResponseEntity(supplierDTO, HttpStatus.OK);
-
-    }*/
-
     @GetMapping("/{supplierId}")
     public ResponseEntity retrieveByIdWithItems(@PathVariable String supplierId){
 

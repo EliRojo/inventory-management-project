@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/items/{itemCode}/report-details")
+@RequestMapping(path = "/summary-reports/{summaryReportId}/report-details")
 public class ReportDetailController {
 
     private final ReportDetailService reportDetailService;
@@ -21,30 +21,38 @@ public class ReportDetailController {
     }
 
     @GetMapping("/{reportDetailId}")
-    public ResponseEntity retrieveById(@PathVariable String itemCode,
+    public ResponseEntity retrieveById(@PathVariable String summaryReportId,
                                        @PathVariable Integer reportDetailId){
 
-        ReportDetailDTO reportDetailDTO = reportDetailService.retrieveById(itemCode, reportDetailId);
+        ReportDetailDTO reportDetailDTO = reportDetailService.retrieveById(summaryReportId, reportDetailId);
 
         return new ResponseEntity(reportDetailDTO, HttpStatus.OK);
 
     }
 
+    @DeleteMapping("/{reportDetailId}")
+    public ResponseEntity delete(@PathVariable Integer reportDetailId) {
+        reportDetailService.delete(reportDetailId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @PutMapping("/{reportDetailId}")
-    public ResponseEntity replace(@PathVariable Integer reportDetailId,
+    public ResponseEntity replace(@PathVariable String summaryReportId,
+                                  @PathVariable Integer reportDetailId,
                                   @RequestBody ReportDetailDTO reportDetailDTO) {
 
-        reportDetailService.replace(reportDetailId, reportDetailDTO);
+        reportDetailService.replace(summaryReportId, reportDetailId, reportDetailDTO);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PatchMapping("/{reportDetailId}")
-    public ResponseEntity modify(@PathVariable Integer reportDetailId,
+    public ResponseEntity modify(@PathVariable String summaryReportId,
+                                 @PathVariable Integer reportDetailId,
                                  @RequestBody Map<String, Object> fieldsToModify) {
 
-        reportDetailService.modify(reportDetailId, fieldsToModify);
+        reportDetailService.modify(summaryReportId, reportDetailId, fieldsToModify);
 
         return new ResponseEntity(HttpStatus.OK);
     }

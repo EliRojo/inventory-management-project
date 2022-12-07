@@ -23,29 +23,23 @@ public class SummaryReport {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(name = "invoice_amount" ,nullable = false)
+    @Column(name = "invoice_amount", nullable = false)
     private Double invoiceAmount;
-
-
 
     @OneToMany(mappedBy = "summaryReport" , fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
     private List<ReportDetail> reportDetails;
 
 
-
     public SummaryReport(){
 
     }
-
 
     public SummaryReport(String summaryId, String operationType, LocalDate date, Double invoiceAmount) {
         this.summaryId = summaryId;
         this.operationType = operationType;
         this.date = date;
         this.invoiceAmount = invoiceAmount;
-
-
     }
 
     public SummaryReport(String summaryId, String operationType, LocalDate date, Double invoiceAmount, List<ReportDetail> reportDetails) {
@@ -55,7 +49,6 @@ public class SummaryReport {
         this.invoiceAmount = invoiceAmount;
         this.reportDetails = reportDetails;
     }
-
 
 
     public String getSummaryId() {
@@ -99,9 +92,6 @@ public class SummaryReport {
 
     public void modifyAttributeValue(String attributeName, Object newValue) {
         switch (attributeName) {
-            case "type":
-                this.operationType = (String) newValue;
-                break;
             case "date":
                 this.date = LocalDate.parse((String) newValue, DATE_TIME_FORMATTER);
                 break;
