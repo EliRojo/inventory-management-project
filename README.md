@@ -21,9 +21,9 @@ El modelo entidad relación utilizado para crear la base de datos del proyecto f
 - MySQL.
 - Postman.
 
-<h1> :woman: Autores </h1>
+<h1> :woman: Autoras </h1>
 
-| [<img src="https://avatars.githubusercontent.com/u/37356058?v=4" width=115><br><sub>Katlerine Torres </sub>](https://github.com/katlerine) |  |
+| [<img src="https://avatars.githubusercontent.com/u/69372029?v=4" width=115><br><sub>Katlerine Torres</sub>](https://github.com/katlerine) |  <br><sub>Laila Aquillos</sub><br>(https://github.com/lucero89) | <sub>Elizabeth Rojas</sub><br>(https://github.com/EliRojo) |
 | :---: | :---: | :---: |
 
 
