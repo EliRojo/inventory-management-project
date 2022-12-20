@@ -5,7 +5,6 @@
    
 <h1 align="center"> Inventory Management Project </h1>
 
-EL PROGRAMA SE ENCUENTRA EN LA RAMA DEVELOP.
 
 Proyecto realizado para la etapa final de la carrera backend con Java del instituto ADA ITW. Inventory Management Project es un programa para gestionar el stock de una empresa, que tiene la finalidad de actualizar el stock de los items y generar un reporte por cada movimiento de entrada o de salida de productos que se genere. El programa contiene los recursos de items, proveedores, reporte de movimientos y su respectivo detalle, cuyas entidades son manejadas a través de operaciones CRUD mediante el uso de Postman. 
 
